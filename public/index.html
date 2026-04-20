@@ -424,6 +424,24 @@ function getLog(profile, key) {
 function saveLog(profile, key, log) {
   const s = store();
   if (!s[profile]) s[profile] = {logs:{}};
+  
+  // Auto-calculate macros before saving
+  let totCal = 0, totP = 0, totC = 0, totF = 0;
+  const pData = PROFILES[profile];
+  if (pData && log.meals) {
+    pData.meals.forEach(m => {
+      if (log.meals[m.key]) {
+        totCal += m.cal; totP += m.p; totC += m.c; totF += m.f;
+      }
+    });
+  }
+  if (log.extras) {
+    log.extras.forEach(e => {
+      totCal += e.cal||0; totP += e.p||0; totC += e.c||0; totF += e.f||0;
+    });
+  }
+  log.totals = { cal: totCal, p: totP, c: totC, f: totF };
+  
   s[profile].logs[key] = log;
   save(s);
   syncToServer(profile, key, log);
