@@ -58,7 +58,7 @@ export default async function handler(req, res) {
           breakfast: breakfast === 'true',
           lunch:     lunch      === 'true',
           snack:     snack      === 'true',
-          dinner:    dinner     === 'true',
+          dinner:    dinner === 'true' ? true : dinner === 'false' ? false : dinner,
           dessert:   dessert    === 'true'
         },
         workout:     workout === 'true' ? true : workout === 'false' ? false : null,
@@ -93,7 +93,7 @@ export default async function handler(req, res) {
       log.meals?.breakfast ? 'true' : 'false',
       log.meals?.lunch     ? 'true' : 'false',
       log.meals?.snack     ? 'true' : 'false',
-      log.meals?.dinner    ? 'true' : 'false',
+      log.meals?.dinner === true ? 'true' : log.meals?.dinner ? log.meals.dinner.toString() : 'false',
       log.meals?.dessert   ? 'true' : 'false',
       log.workout === true ? 'true' : log.workout === false ? 'false' : '',
       log.workoutType || '',
@@ -104,19 +104,27 @@ export default async function handler(req, res) {
     if (rowIndex > 0) {
       // Update existing row
       const range = encodeURIComponent(`Sheet1!A${rowIndex}:N${rowIndex}`);
-      await fetch(`${base}/values/${range}?valueInputOption=RAW`, {
+      const sheetRes = await fetch(`${base}/values/${range}?valueInputOption=RAW`, {
         method: 'PUT',
         headers: { Authorization: auth, 'Content-Type': 'application/json' },
         body: JSON.stringify({ values: rowData })
       });
+      if (!sheetRes.ok) {
+        const errorText = await sheetRes.text();
+        return res.status(500).json({ error: 'Failed to update sheet', detail: errorText });
+      }
     } else {
       // Append new row
       const range = encodeURIComponent('Sheet1!A:N');
-      await fetch(`${base}/values/${range}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`, {
+      const sheetRes = await fetch(`${base}/values/${range}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`, {
         method: 'POST',
         headers: { Authorization: auth, 'Content-Type': 'application/json' },
         body: JSON.stringify({ values: rowData })
       });
+      if (!sheetRes.ok) {
+        const errorText = await sheetRes.text();
+        return res.status(500).json({ error: 'Failed to append to sheet', detail: errorText });
+      }
     }
 
     return res.status(200).json({ success: true });

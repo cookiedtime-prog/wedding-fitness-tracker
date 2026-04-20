@@ -507,6 +507,24 @@ function renderToday(el) {
     ${p.meals.map(m => {
       const done = !!log.meals[m.key];
       const locked = m.earned && !allDone;
+      const isWeekend = new Date().getDay() === 0 || new Date().getDay() === 6;
+      if (isWeekend && m.key === 'dinner') {
+        const val = typeof log.meals.dinner === 'string' ? log.meals.dinner : '';
+        const isDone = val.length > 0 || log.meals.dinner === true;
+        return `<div class="meal-item" style="display:flex;flex-direction:column;gap:6px;align-items:stretch;cursor:default;">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="m-check ${isDone?'done':''}" onclick="toggleMeal('${m.key}')" style="cursor:pointer">
+              ${isDone ? `<svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ''}
+            </div>
+            <div class="m-icon">🌟</div>
+            <div class="m-info">
+              <div class="m-name">Flex Dinner</div>
+              <div class="m-detail">Enjoy your weekend free meal!</div>
+            </div>
+          </div>
+          <input type="text" id="inp-flex-dinner" class="inp" placeholder="What did you eat? (e.g. 800 kcal pizza)" value="${val}" oninput="autosave()" style="margin-top:4px;font-size:0.75rem;padding:8px 12px;">
+        </div>`;
+      }
       return `<div class="meal-item" onclick="${locked ? 'showEarnedMsg()' : `toggleMeal('${m.key}')`}" style="${locked?'opacity:0.5':''}">
         <div class="m-check ${done?'done':''}">
           ${done ? `<svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ''}
@@ -1323,9 +1341,11 @@ function autosave() {
   const w = document.getElementById('inp-weight')?.value;
   const st = document.getElementById('inp-steps')?.value;
   const wa = document.getElementById('inp-water')?.value;
+  const flexDin = document.getElementById('inp-flex-dinner')?.value;
   if (w !== undefined) log.weight = w ? parseFloat(w) : null;
   if (st !== undefined) log.steps = st ? parseInt(st) : null;
   if (wa !== undefined) log.water = wa ? parseFloat(wa) : null;
+  if (flexDin !== undefined) log.meals.dinner = flexDin ? flexDin : false;
   saveLog(cur, todayKey(), log);
   updateWeightDisplay();
 }
