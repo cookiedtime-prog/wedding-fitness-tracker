@@ -15,8 +15,8 @@
   --blue:#60a5fa;--blue-d:#1b2d4e;
   --text:#e2e8f0;--muted:#94a3b8;--dim:#4b5563;
 }
-html{font-size:42px}
-@media(min-width:768px){html{font-size:52px}}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+@media(min-width:768px){html{font-size:16px;-webkit-text-size-adjust:100%}}
 html,body{height:100%;height:100dvh;overflow:hidden;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
 /* ─── LAYOUT ─── */
 #app{display:flex;flex-direction:column;height:100%;max-width:768px;margin:0 auto;position:relative}
@@ -24,28 +24,28 @@ html,body{height:100%;height:100dvh;overflow:hidden;background:var(--bg);color:v
 .hdr{background:linear-gradient(135deg,#4c1d95,#6d28d9,#a855f7);padding:14px 16px 10px;flex-shrink:0;position:relative;overflow:hidden}
 .hdr::before{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,0.06);pointer-events:none}
 .hdr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.hdr-title{font-size:1rem;font-weight:800;letter-spacing:-0.2px}
-.hdr-sub{font-size:0.6rem;opacity:0.7;margin-top:1px}
+.hdr-title{font-size:2.5rem;font-weight:800;letter-spacing:-0.2px}
+.hdr-sub{font-size:1.5rem;opacity:0.7;margin-top:1px}
 .cd-row{display:flex;gap:6px}
 .cd-box{background:rgba(0,0,0,0.25);border-radius:8px;padding:5px 8px;text-align:center;flex:1;backdrop-filter:blur(4px)}
-.cd-num{font-size:1.1rem;font-weight:900;line-height:1}
-.cd-lbl{font-size:0.45rem;opacity:0.7;text-transform:uppercase;letter-spacing:0.5px;margin-top:1px}
+.cd-num{font-size:2.75rem;font-weight:900;line-height:1}
+.cd-lbl{font-size:1.12rem;opacity:0.7;text-transform:uppercase;letter-spacing:0.5px;margin-top:1px}
 .cd-goal{background:rgba(34,197,94,0.2);border:1px solid rgba(34,197,94,0.3);color:#6ee7b7}
 /* ─── PROFILES ─── */
 .profiles{display:flex;gap:8px;padding:10px 12px;flex-shrink:0}
 .pcard{flex:1;background:var(--card);border-radius:12px;padding:10px;text-align:center;border:2px solid transparent;cursor:pointer;transition:all .2s}
 .pcard.active{border-color:var(--purple);background:#26163d}
 .pcard.active.v{border-color:var(--pink);background:#1a1a3a}
-.p-emoji{font-size:1.2rem;margin-bottom:2px}
-.p-name{font-size:0.72rem;font-weight:700}
-.p-weight{font-size:0.58rem;color:var(--muted);margin-top:1px}
-.p-cal{font-size:0.55rem;font-weight:600;margin-top:2px}
+.p-emoji{font-size:3.0rem;margin-bottom:2px}
+.p-name{font-size:1.8rem;font-weight:700}
+.p-weight{font-size:1.45rem;color:var(--muted);margin-top:1px}
+.p-cal{font-size:1.38rem;font-weight:600;margin-top:2px}
 .pcard.active .p-cal{color:var(--purple)}
 .pcard.active.v .p-cal{color:var(--pink)}
 /* ─── TABS ─── */
 .tabs{display:flex;background:var(--card2);border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:1;min-width:60px;padding:10px 6px;font-size:0.62rem;font-weight:600;color:var(--dim);border-bottom:2px solid transparent;text-align:center;cursor:pointer;white-space:nowrap;transition:all .15s}
+.tab{flex:1;min-width:60px;padding:10px 6px;font-size:1.55rem;font-weight:600;color:var(--dim);border-bottom:2px solid transparent;text-align:center;cursor:pointer;white-space:nowrap;transition:all .15s}
 .tab.active{color:var(--purple);border-bottom-color:var(--purple)}
 /* ─── SCROLL BODY ─── */
 .body{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch}
@@ -53,44 +53,44 @@ html,body{height:100%;height:100dvh;overflow:hidden;background:var(--bg);color:v
 .body::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 /* ─── CARDS ─── */
 .card{background:var(--card);border-radius:14px;padding:14px;border:1px solid var(--border)}
-.card-title{font-size:0.58rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--dim);font-weight:700;margin-bottom:10px}
+.card-title{font-size:1.45rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--dim);font-weight:700;margin-bottom:10px}
 /* ─── PROGRESS BAR ─── */
 .bar-wrap{background:var(--border);border-radius:10px;height:6px;overflow:hidden}
 .bar{height:100%;border-radius:10px;transition:width .4s ease}
-.bar-row{display:flex;justify-content:space-between;font-size:0.55rem;color:var(--dim);margin-top:3px}
+.bar-row{display:flex;justify-content:space-between;font-size:1.38rem;color:var(--dim);margin-top:3px}
 /* ─── INPUT ROW ─── */
 .inp-row{display:flex;gap:8px}
 .inp-group{flex:1;display:flex;flex-direction:column;gap:4px}
-.inp-label{font-size:0.58rem;color:var(--muted)}
-.inp{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:0.9rem;width:100%;outline:none;font-family:inherit;transition:border-color .15s}
+.inp-label{font-size:1.45rem;color:var(--muted)}
+.inp{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:2.25rem;width:100%;outline:none;font-family:inherit;transition:border-color .15s}
 .inp:focus{border-color:var(--purple)}
 .inp::placeholder{color:var(--dim)}
 /* ─── MEAL CHECKLIST ─── */
 .meal-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;-webkit-user-select:none}
 .meal-item:last-child{border-bottom:none}
-.m-check{width:1.8rem;height:1.8rem;border-radius:50%;border:2px solid var(--dim);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.m-check{width:4.5rem;height:4.5rem;border-radius:50%;border:2px solid var(--dim);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .m-check.done{background:var(--purple);border-color:var(--purple)}
-.m-check svg{width:0.9rem;height:0.9rem}
-.m-icon{font-size:1.1rem;flex-shrink:0}
+.m-check svg{width:2.25rem;height:2.25rem}
+.m-icon{font-size:2.75rem;flex-shrink:0}
 .m-info{flex:1;min-width:0}
-.m-name{font-size:0.78rem;font-weight:700}
-.m-detail{font-size:0.6rem;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.m-kcal{font-size:0.58rem;color:var(--purple);font-weight:600;margin-top:1px}
-.m-earned{font-size:0.55rem;color:var(--gold);margin-top:1px}
+.m-name{font-size:1.95rem;font-weight:700}
+.m-detail{font-size:1.5rem;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-kcal{font-size:1.45rem;color:var(--purple);font-weight:600;margin-top:1px}
+.m-earned{font-size:1.38rem;color:var(--gold);margin-top:1px}
 /* ─── WORKOUT SECTION ─── */
 .wo-box{background:var(--card2);border-radius:10px;padding:10px 12px;margin-bottom:8px}
 .wo-type-row{display:flex;align-items:center;gap:6px;margin-bottom:4px}
-.wo-tag{padding:2px 8px;border-radius:5px;font-size:0.58rem;font-weight:700}
+.wo-tag{padding:2px 8px;border-radius:5px;font-size:1.45rem;font-weight:700}
 .wt-gym{background:var(--purple-deep);color:#c4b5fd}
 .wt-cardio{background:var(--green-d);color:#86efac}
 .wt-walk{background:var(--green-d);color:#6ee7b7}
 .wt-rest{background:#1a1a2a;color:var(--dim)}
 .wt-together{background:var(--pink-d);color:#f9a8d4}
 .wt-plan{background:var(--blue-d);color:var(--blue)}
-.wo-exercises{font-size:0.65rem;color:var(--muted);line-height:1.6}
+.wo-exercises{font-size:1.62rem;color:var(--muted);line-height:1.6}
 .wo-exercises b{color:var(--text)}
 .wo-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.wo-btn{padding:11px;border-radius:10px;border:2px solid var(--border);background:transparent;color:var(--text);font-size:0.75rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.wo-btn{padding:11px;border-radius:10px;border:2px solid var(--border);background:transparent;color:var(--text);font-size:1.88rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
 .wo-btn.done-btn.active{background:var(--green);border-color:var(--green);color:#fff}
 .wo-btn.skip-btn.active{background:#ef4444;border-color:#ef4444;color:#fff}
 /* ─── SUPPLEMENTS ─── */
@@ -98,17 +98,17 @@ html,body{height:100%;height:100dvh;overflow:hidden;background:var(--bg);color:v
 /* ─── MACRO GRID ─── */
 .macro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .mc{background:var(--card2);border-radius:10px;padding:9px 4px;text-align:center}
-.mc-val{font-size:1rem;font-weight:900}
-.mc-lbl{font-size:0.5rem;color:var(--dim);margin-top:2px;text-transform:uppercase;letter-spacing:0.3px}
+.mc-val{font-size:2.5rem;font-weight:900}
+.mc-lbl{font-size:1.25rem;color:var(--dim);margin-top:2px;text-transform:uppercase;letter-spacing:0.3px}
 /* ─── MEAL PLAN CARDS ─── */
 .mp-item{padding:11px 0;border-bottom:1px solid var(--border)}
 .mp-item:last-child{border-bottom:none}
-.mp-name{font-size:0.75rem;font-weight:700;color:var(--purple);margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.mp-name{font-size:1.88rem;font-weight:700;color:var(--purple);margin-bottom:5px;display:flex;align-items:center;gap:6px}
 .mp-name.v{color:var(--pink)}
-.mp-foods{font-size:0.7rem;color:var(--muted);line-height:1.6}
-.mp-portion{font-size:0.65rem;color:var(--text);font-weight:600}
+.mp-foods{font-size:1.75rem;color:var(--muted);line-height:1.6}
+.mp-portion{font-size:1.62rem;color:var(--text);font-weight:600}
 .mp-macros{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
-.mp-badge{padding:2px 7px;border-radius:5px;font-size:0.55rem;font-weight:600}
+.mp-badge{padding:2px 7px;border-radius:5px;font-size:1.38rem;font-weight:600}
 .mp-kcal{background:var(--purple-deep);color:#c4b5fd}
 .mp-pro{background:var(--blue-d);color:var(--blue)}
 .mp-car{background:var(--gold-d);color:var(--gold)}
@@ -116,8 +116,8 @@ html,body{height:100%;height:100dvh;overflow:hidden;background:var(--bg);color:v
 /* ─── WEEK GRID ─── */
 .wk-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
 .wk-cell{text-align:center}
-.wk-lbl{font-size:0.5rem;color:var(--dim);margin-bottom:3px}
-.wk-dot{width:2.2rem;height:2.2rem;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;background:var(--border);color:var(--dim)}
+.wk-lbl{font-size:1.25rem;color:var(--dim);margin-bottom:3px}
+.wk-dot{width:5.5rem;height:5.5rem;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:1.75rem;font-weight:700;background:var(--border);color:var(--dim)}
 .wk-dot.gym{background:var(--purple-deep);color:#c4b5fd}
 .wk-dot.walk{background:var(--green-d);color:#6ee7b7}
 .wk-dot.plan{background:var(--blue-d);color:var(--blue)}
@@ -128,52 +128,52 @@ html,body{height:100%;height:100dvh;overflow:hidden;background:var(--bg);color:v
 /* ─── PROGRESS STATS ─── */
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .stat-box{background:var(--card2);border-radius:10px;padding:10px;text-align:center}
-.stat-val{font-size:1.1rem;font-weight:900}
-.stat-lbl{font-size:0.5rem;color:var(--dim);margin-top:2px}
+.stat-val{font-size:2.75rem;font-weight:900}
+.stat-lbl{font-size:1.25rem;color:var(--dim);margin-top:2px}
 /* ─── CHART ─── */
-.chart-wrap{position:relative;width:100%;height:8rem}
+.chart-wrap{position:relative;width:100%;height:20.0rem}
 canvas{position:absolute;top:0;left:0;width:100%!important;height:100%!important}
 /* ─── US TAB ─── */
 .us-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .us-card{background:var(--card2);border-radius:12px;padding:12px;text-align:center}
-.us-avatar{font-size:1.5rem;margin-bottom:4px}
-.us-name{font-size:0.65rem;font-weight:700;margin-bottom:8px}
-.us-row{display:flex;justify-content:space-between;align-items:center;font-size:0.6rem;color:var(--muted);padding:3px 0;border-bottom:1px solid var(--border)}
+.us-avatar{font-size:3.75rem;margin-bottom:4px}
+.us-name{font-size:1.62rem;font-weight:700;margin-bottom:8px}
+.us-row{display:flex;justify-content:space-between;align-items:center;font-size:1.5rem;color:var(--muted);padding:3px 0;border-bottom:1px solid var(--border)}
 .us-row:last-child{border-bottom:none}
-.us-badge{font-size:0.55rem;font-weight:700;padding:2px 6px;border-radius:5px}
+.us-badge{font-size:1.38rem;font-weight:700;padding:2px 6px;border-radius:5px}
 .ub-green{background:var(--green-d);color:#6ee7b7}
 .ub-purple{background:var(--purple-deep);color:#c4b5fd}
 .ub-gray{background:#1a1a2a;color:var(--dim)}
 .ub-gold{background:var(--gold-d);color:var(--gold)}
 /* ─── MOTIVATION ─── */
-.motivation{background:linear-gradient(135deg,#3b0764,#1b2d4e);border-radius:12px;padding:14px;text-align:center;font-size:0.72rem;font-style:italic;color:#d8b4fe;line-height:1.6;border:1px solid #5b21b6}
+.motivation{background:linear-gradient(135deg,#3b0764,#1b2d4e);border-radius:12px;padding:14px;text-align:center;font-size:1.8rem;font-style:italic;color:#d8b4fe;line-height:1.6;border:1px solid #5b21b6}
 /* ─── SAVE BTN ─── */
-.save-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--purple-d),var(--purple));border:none;border-radius:12px;color:#fff;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s}
+.save-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--purple-d),var(--purple));border:none;border-radius:12px;color:#fff;font-size:2.12rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s}
 .save-btn:hover{opacity:.9}
 /* ─── LEGEND ─── */
 .legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
-.leg-item{display:flex;align-items:center;gap:5px;font-size:0.58rem;color:var(--muted)}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:1.45rem;color:var(--muted)}
 .leg-dot{width:8px;height:8px;border-radius:50%}
 /* ─── TOAST ─── */
-#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:10px 20px;border-radius:10px;font-size:0.78rem;font-weight:600;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;white-space:nowrap}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:10px 20px;border-radius:10px;font-size:1.95rem;font-weight:600;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;white-space:nowrap}
 #toast.show{opacity:1}
 /* ─── COMPLIANCE BARS ─── */
 .comp-row{margin-bottom:8px}
-.comp-head{display:flex;justify-content:space-between;font-size:0.65rem;color:var(--muted);margin-bottom:4px}
+.comp-head{display:flex;justify-content:space-between;font-size:1.62rem;color:var(--muted);margin-bottom:4px}
 .comp-head span:last-child{font-weight:700;color:var(--text)}
 /* ─── SEPARATOR ─── */
 .sep{height:1px;background:var(--border);margin:4px 0}
 /* ─── CALLOUT ─── */
-.callout{background:var(--card2);border-radius:10px;padding:10px 12px;border-left:3px solid var(--gold);font-size:0.68rem;color:var(--muted);line-height:1.5}
+.callout{background:var(--card2);border-radius:10px;padding:10px 12px;border-left:3px solid var(--gold);font-size:1.7rem;color:var(--muted);line-height:1.5}
 .callout b{color:var(--gold)}
 /* ─── SUPP TAGS ─── */
 .supp-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
-.supp-tag{background:var(--purple-deep);color:#c4b5fd;border-radius:6px;padding:3px 8px;font-size:0.58rem}
+.supp-tag{background:var(--purple-deep);color:#c4b5fd;border-radius:6px;padding:3px 8px;font-size:1.45rem}
 /* ─── WEEKLY FULL TABLE ─── */
 .full-week{display:flex;flex-direction:column;gap:6px}
 .fw-row{background:var(--card2);border-radius:10px;padding:10px 12px}
-.fw-day{font-size:0.6rem;font-weight:700;color:var(--dim);margin-bottom:4px}
-.fw-detail{font-size:0.68rem;color:var(--muted);line-height:1.5}
+.fw-day{font-size:1.5rem;font-weight:700;color:var(--dim);margin-bottom:4px}
+.fw-detail{font-size:1.7rem;color:var(--muted);line-height:1.5}
 .fw-detail b{color:var(--text)}
 /* ─── SYNC STATUS ─── */
 .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--dim);display:inline-block;margin-left:6px;vertical-align:middle;transition:background .3s}
@@ -197,7 +197,7 @@ canvas{position:absolute;top:0;left:0;width:100%!important;height:100%!important
         <div class="hdr-title">💍 Wedding Fitness Tracker<span class="sync-dot" id="sync-dot" title="Sync status"></span></div>
         <div class="hdr-sub">Mayowa & Vanessa · August 28, 2026</div>
       </div>
-      <div style="font-size:0.6rem;color:rgba(255,255,255,0.6);text-align:right">
+      <div style="font-size:1.5rem;color:rgba(255,255,255,0.6);text-align:right">
         <div id="today-date"></div>
       </div>
     </div>
@@ -553,7 +553,7 @@ function renderToday(el) {
 }
 
 function renderWorkoutBox(wo, log) {
-  if (!wo) return '<div style="color:var(--dim);font-size:0.75rem">No workout scheduled today.</div>';
+  if (!wo) return '<div style="color:var(--dim);font-size:1.88rem">No workout scheduled today.</div>';
   const typeClass = wo.type==='gym'?'wt-gym': wo.type==='walk'?'wt-walk': wo.type==='plan'?'wt-plan':'wt-rest';
   return `
     <div class="wo-box">
@@ -562,7 +562,7 @@ function renderWorkoutBox(wo, log) {
         ${wo.together ? '<span class="wo-tag wt-together">Together</span>' : ''}
       </div>
       <div class="wo-exercises">${wo.exercises.split('·').map(e=>`<span>· ${e.trim()}</span>`).join('')}</div>
-      ${wo.cardio ? `<div style="margin-top:6px;font-size:0.62rem;color:var(--blue)">🏃 Cardio: ${wo.cardio}</div>` : ''}
+      ${wo.cardio ? `<div style="margin-top:6px;font-size:1.55rem;color:var(--blue)">🏃 Cardio: ${wo.cardio}</div>` : ''}
     </div>
   `;
 }
@@ -588,7 +588,7 @@ function renderMeals(el) {
       <div class="mc"><div class="mc-val" style="color:var(--gold)">${p.carbs}g</div><div class="mc-lbl">carbs</div></div>
       <div class="mc"><div class="mc-val" style="color:var(--pink)">${p.fat}g</div><div class="mc-lbl">fat</div></div>
     </div>
-    <div style="font-size:0.58rem;color:var(--dim);text-align:center;margin-top:8px">Strict Mon–Fri · Flex Sat–Sun (free dinner under 700 kcal)</div>
+    <div style="font-size:1.45rem;color:var(--dim);text-align:center;margin-top:8px">Strict Mon–Fri · Flex Sat–Sun (free dinner under 700 kcal)</div>
   `));
 
   // Meal plan
@@ -598,7 +598,7 @@ function renderMeals(el) {
       <div class="mp-item">
         <div class="mp-name ${isV?'v':''}">
           ${m.icon} ${m.name} — ${m.title}
-          ${m.earned ? '<span style="background:var(--gold-d);color:var(--gold);padding:2px 7px;border-radius:5px;font-size:0.52rem;font-weight:700;">EARNED</span>' : ''}
+          ${m.earned ? '<span style="background:var(--gold-d);color:var(--gold);padding:2px 7px;border-radius:5px;font-size:1.3rem;font-weight:700;">EARNED</span>' : ''}
         </div>
         <div class="mp-foods">${m.foods}</div>
         <div class="mp-portion" style="margin-top:4px;color:${color}">${m.portion}</div>
@@ -625,7 +625,7 @@ function renderMeals(el) {
   el.appendChild(card(`
     <div class="card-title">💊 Supplements — Take with Meal 1</div>
     <div class="supp-tags">${SUPPS.map(s=>`<span class="supp-tag">${s}</span>`).join('')}</div>
-    <div style="font-size:0.6rem;color:var(--dim);margin-top:8px">Creatine: take pre or post workout for best results · Raw Isolate goes in the overnight oats</div>
+    <div style="font-size:1.5rem;color:var(--dim);margin-top:8px">Creatine: take pre or post workout for best results · Raw Isolate goes in the overnight oats</div>
   `));
 
   // Dessert rule
@@ -776,9 +776,9 @@ function renderProgress(el) {
   const chartCard = card(`
     <div class="card-title">Weight History</div>
     ${weights.length > 1 ? `<div class="chart-wrap"><canvas id="wt-chart"></canvas></div>
-    <div style="display:flex;justify-content:space-between;font-size:0.58rem;color:var(--dim);margin-top:6px">
+    <div style="display:flex;justify-content:space-between;font-size:1.45rem;color:var(--dim);margin-top:6px">
       <span>Start: ${p.startWeight} lbs</span><span>Goal: ${p.goalWeight} lbs</span>
-    </div>` : `<div style="text-align:center;padding:24px;color:var(--dim);font-size:0.78rem">Log your weight daily to see your chart 📈</div>`}
+    </div>` : `<div style="text-align:center;padding:24px;color:var(--dim);font-size:1.95rem">Log your weight daily to see your chart 📈</div>`}
   `);
   el.appendChild(chartCard);
   if (weights.length > 1) setTimeout(() => drawChart(weights, p.startWeight, p.goalWeight), 50);
@@ -874,14 +874,14 @@ function renderUs(el) {
   // Big countdown
   el.appendChild(card(`
     <div style="text-align:center">
-      <div style="font-size:0.6rem;color:var(--dim);margin-bottom:4px">🎯 Days to goal weight</div>
-      <div style="font-size:3rem;font-weight:900;color:var(--green);line-height:1">${daysToGoal}</div>
-      <div style="font-size:0.65rem;color:var(--dim);margin-bottom:4px">August 14, 2026</div>
-      <div style="font-size:0.6rem;color:var(--muted);margin-bottom:12px">Then ${daysToWedding} days to the wedding 💍</div>
+      <div style="font-size:1.5rem;color:var(--dim);margin-bottom:4px">🎯 Days to goal weight</div>
+      <div style="font-size:7.5rem;font-weight:900;color:var(--green);line-height:1">${daysToGoal}</div>
+      <div style="font-size:1.62rem;color:var(--dim);margin-bottom:4px">August 14, 2026</div>
+      <div style="font-size:1.5rem;color:var(--muted);margin-bottom:12px">Then ${daysToWedding} days to the wedding 💍</div>
       <div class="bar-wrap">
         <div class="bar" style="width:${pct}%;background:linear-gradient(90deg,var(--purple-d),var(--purple))"></div>
       </div>
-      <div style="font-size:0.58rem;color:var(--dim);margin-top:4px">${pct}% of the journey complete · ${daysToGoal} days left</div>
+      <div style="font-size:1.45rem;color:var(--dim);margin-top:4px">${pct}% of the journey complete · ${daysToGoal} days left</div>
     </div>
   `));
 
@@ -913,16 +913,16 @@ function renderUs(el) {
     <div class="card-title">Streaks 🔥</div>
     <div class="us-grid">
       <div class="us-card">
-        <div style="font-size:1.6rem">🔥</div>
-        <div style="font-size:1.6rem;font-weight:900;color:var(--gold)">${mStreak}</div>
-        <div style="font-size:0.58rem;color:var(--dim)">day streak</div>
-        <div style="font-size:0.65rem;font-weight:700;margin-top:4px">Mayowa</div>
+        <div style="font-size:4.0rem">🔥</div>
+        <div style="font-size:4.0rem;font-weight:900;color:var(--gold)">${mStreak}</div>
+        <div style="font-size:1.45rem;color:var(--dim)">day streak</div>
+        <div style="font-size:1.62rem;font-weight:700;margin-top:4px">Mayowa</div>
       </div>
       <div class="us-card">
-        <div style="font-size:1.6rem">🔥</div>
-        <div style="font-size:1.6rem;font-weight:900;color:var(--gold)">${vStreak}</div>
-        <div style="font-size:0.58rem;color:var(--dim)">day streak</div>
-        <div style="font-size:0.65rem;font-weight:700;margin-top:4px">Vanessa</div>
+        <div style="font-size:4.0rem">🔥</div>
+        <div style="font-size:4.0rem;font-weight:900;color:var(--gold)">${vStreak}</div>
+        <div style="font-size:1.45rem;color:var(--dim)">day streak</div>
+        <div style="font-size:1.62rem;font-weight:700;margin-top:4px">Vanessa</div>
       </div>
     </div>
   `));
@@ -932,22 +932,22 @@ function renderUs(el) {
     <div class="card-title">Combined Progress 💪</div>
     <div class="us-grid">
       <div class="us-card">
-        <div style="font-size:0.6rem;color:var(--dim);margin-bottom:4px">Mayowa</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--green)">−${mLost} lbs</div>
-        <div style="font-size:0.6rem;color:var(--dim)">211 → ${mCur} lbs</div>
-        <div style="font-size:0.55rem;color:var(--dim);margin-top:3px">Goal: 185 lbs</div>
+        <div style="font-size:1.5rem;color:var(--dim);margin-bottom:4px">Mayowa</div>
+        <div style="font-size:2.75rem;font-weight:800;color:var(--green)">−${mLost} lbs</div>
+        <div style="font-size:1.5rem;color:var(--dim)">211 → ${mCur} lbs</div>
+        <div style="font-size:1.38rem;color:var(--dim);margin-top:3px">Goal: 185 lbs</div>
       </div>
       <div class="us-card">
-        <div style="font-size:0.6rem;color:var(--dim);margin-bottom:4px">Vanessa</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--green)">−${vLost} lbs</div>
-        <div style="font-size:0.6rem;color:var(--dim)">180 → ${vCur} lbs</div>
-        <div style="font-size:0.55rem;color:var(--dim);margin-top:3px">Goal: 155 lbs</div>
+        <div style="font-size:1.5rem;color:var(--dim);margin-bottom:4px">Vanessa</div>
+        <div style="font-size:2.75rem;font-weight:800;color:var(--green)">−${vLost} lbs</div>
+        <div style="font-size:1.5rem;color:var(--dim)">180 → ${vCur} lbs</div>
+        <div style="font-size:1.38rem;color:var(--dim);margin-top:3px">Goal: 155 lbs</div>
       </div>
     </div>
     <div style="margin-top:10px;text-align:center;background:var(--card2);border-radius:8px;padding:10px;">
-      <div style="font-size:0.6rem;color:var(--dim);margin-bottom:2px">Together you've lost</div>
-      <div style="font-size:1.6rem;font-weight:900;color:var(--purple)">−${totalLost} lbs</div>
-      <div style="font-size:0.58rem;color:var(--dim)">combined 🤝</div>
+      <div style="font-size:1.5rem;color:var(--dim);margin-bottom:2px">Together you've lost</div>
+      <div style="font-size:4.0rem;font-weight:900;color:var(--purple)">−${totalLost} lbs</div>
+      <div style="font-size:1.45rem;color:var(--dim)">combined 🤝</div>
     </div>
   `));
 
@@ -959,7 +959,7 @@ function renderUs(el) {
     `"The discipline you build in these ${daysToGoal} days will outlast the wedding. This is just the beginning."`,
   ];
   const mot = motivations[new Date().getDate() % motivations.length];
-  el.appendChild(card(`<div class="motivation">${mot}<div style="font-size:0.55rem;opacity:0.5;margin-top:8px">Started Apr 19, 2026 · Goal Aug 14 · Wedding Aug 28 💍</div></div>`));
+  el.appendChild(card(`<div class="motivation">${mot}<div style="font-size:1.38rem;opacity:0.5;margin-top:8px">Started Apr 19, 2026 · Goal Aug 14 · Wedding Aug 28 💍</div></div>`));
 }
 
 // ════════════════════════════════════════════
@@ -969,7 +969,7 @@ function renderPlan(el) {
   // ── OVERVIEW ──
   el.appendChild(card(`
     <div class="card-title">💍 The Plan — Mayowa & Vanessa</div>
-    <div style="font-size:0.68rem;color:var(--muted);line-height:1.6;margin-bottom:10px">
+    <div style="font-size:1.7rem;color:var(--muted);line-height:1.6;margin-bottom:10px">
       Cut to goal weights by <b style="color:var(--green)">August 14, 2026</b> — 2 weeks before the wedding.
       Then shift to maintenance Aug 14–28 so you both look full, lean, and not depleted walking down the aisle.
     </div>
@@ -999,8 +999,8 @@ function renderPlan(el) {
   el.appendChild(card(`
     <div class="card-title">🔢 Daily Calorie & Macro Targets</div>
     <div style="margin-bottom:10px">
-      <div style="font-size:0.6rem;color:var(--purple);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">🏋️ Mayowa</div>
-      <div style="background:var(--card2);border-radius:10px;padding:10px;margin-bottom:6px;font-size:0.65rem;color:var(--muted);line-height:1.8">
+      <div style="font-size:1.5rem;color:var(--purple);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">🏋️ Mayowa</div>
+      <div style="background:var(--card2);border-radius:10px;padding:10px;margin-bottom:6px;font-size:1.62rem;color:var(--muted);line-height:1.8">
         TDEE ~3,004 kcal &nbsp;·&nbsp; Target <b style="color:var(--text)">2,200 kcal</b> &nbsp;·&nbsp; Deficit ~800 kcal/day
       </div>
       <div class="macro-grid">
@@ -1012,8 +1012,8 @@ function renderPlan(el) {
     </div>
     <div class="sep"></div>
     <div style="margin-top:10px">
-      <div style="font-size:0.6rem;color:var(--pink);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">👑 Vanessa</div>
-      <div style="background:var(--card2);border-radius:10px;padding:10px;margin-bottom:6px;font-size:0.65rem;color:var(--muted);line-height:1.8">
+      <div style="font-size:1.5rem;color:var(--pink);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">👑 Vanessa</div>
+      <div style="background:var(--card2);border-radius:10px;padding:10px;margin-bottom:6px;font-size:1.62rem;color:var(--muted);line-height:1.8">
         TDEE ~2,449 kcal &nbsp;·&nbsp; Target <b style="color:var(--text)">1,700 kcal</b> &nbsp;·&nbsp; Deficit ~750 kcal/day
       </div>
       <div class="macro-grid">
@@ -1073,35 +1073,35 @@ function renderPlan(el) {
   mealData.forEach(m => {
     el.appendChild(card(`
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <span style="font-size:1.3rem">${m.icon}</span>
-        <div style="font-size:0.78rem;font-weight:800;${m.earned?'color:var(--gold)':''}">${m.name}</div>
+        <span style="font-size:3.25rem">${m.icon}</span>
+        <div style="font-size:1.95rem;font-weight:800;${m.earned?'color:var(--gold)':''}">${m.name}</div>
       </div>
       <div style="margin-bottom:8px">
-        <div style="font-size:0.58rem;color:var(--purple);font-weight:700;margin-bottom:3px">🏋️ MAYOWA</div>
-        <div style="font-size:0.68rem;color:var(--muted);line-height:1.6">${m.m}</div>
-        <div style="font-size:0.58rem;color:var(--purple);font-weight:600;margin-top:3px">${m.mCal}</div>
+        <div style="font-size:1.45rem;color:var(--purple);font-weight:700;margin-bottom:3px">🏋️ MAYOWA</div>
+        <div style="font-size:1.7rem;color:var(--muted);line-height:1.6">${m.m}</div>
+        <div style="font-size:1.45rem;color:var(--purple);font-weight:600;margin-top:3px">${m.mCal}</div>
       </div>
       <div style="margin-bottom:8px">
-        <div style="font-size:0.58rem;color:var(--pink);font-weight:700;margin-bottom:3px">👑 VANESSA</div>
-        <div style="font-size:0.68rem;color:var(--muted);line-height:1.6">${m.v}</div>
-        <div style="font-size:0.58rem;color:var(--pink);font-weight:600;margin-top:3px">${m.vCal}</div>
+        <div style="font-size:1.45rem;color:var(--pink);font-weight:700;margin-bottom:3px">👑 VANESSA</div>
+        <div style="font-size:1.7rem;color:var(--muted);line-height:1.6">${m.v}</div>
+        <div style="font-size:1.45rem;color:var(--pink);font-weight:600;margin-top:3px">${m.vCal}</div>
       </div>
-      <div style="background:var(--card2);border-radius:8px;padding:8px 10px;font-size:0.62rem;color:var(--dim);line-height:1.5;font-style:italic">${m.note}</div>
+      <div style="background:var(--card2);border-radius:8px;padding:8px 10px;font-size:1.55rem;color:var(--dim);line-height:1.5;font-style:italic">${m.note}</div>
     `));
   });
 
   // ── QUINOA METHOD ──
   el.appendChild(card(`
     <div class="card-title">🍚 Quinoa Cooking Method</div>
-    <div style="font-size:0.68rem;color:var(--muted);line-height:1.8">
+    <div style="font-size:1.7rem;color:var(--muted);line-height:1.8">
       <b style="color:var(--text)">Reference:</b> Grubanny — "How To Cook Quinoa The Right Way"<br>
-      <span style="font-size:0.6rem;color:var(--dim)">youtube.com/watch?v=FDGt5ElvIPc</span>
+      <span style="font-size:1.5rem;color:var(--dim)">youtube.com/watch?v=FDGt5ElvIPc</span>
     </div>
     <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
       ${['Add quinoa to a bowl and pour cold water over it','Rub vigorously between palms until water turns cloudy — this removes the bitter saponin coating','Strain through a fine mesh strainer','Transfer to pot · add 1.5 cups water per 2 cups quinoa + a pinch of salt','Cover and bring to a boil for exactly 3 minutes','Reduce to a simmer for 12 minutes','Remove from heat, fluff with a fork → perfectly fluffy, zero clumps'].map((s,i)=>`
         <div style="display:flex;gap:8px;align-items:baseline">
-          <div style="background:var(--purple-deep);color:#c4b5fd;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:0.55rem;font-weight:700;flex-shrink:0">${i+1}</div>
-          <div style="font-size:0.68rem;color:var(--muted);line-height:1.5">${s}</div>
+          <div style="background:var(--purple-deep);color:#c4b5fd;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:1.38rem;font-weight:700;flex-shrink:0">${i+1}</div>
+          <div style="font-size:1.7rem;color:var(--muted);line-height:1.5">${s}</div>
         </div>`).join('')}
     </div>
     <div class="callout" style="margin-top:10px">
@@ -1115,7 +1115,7 @@ function renderPlan(el) {
   el.appendChild(card(`
     <div class="card-title">💊 Supplements — Both, with Meal 1</div>
     <div class="supp-tags">${SUPPS.map(s=>`<span class="supp-tag">${s}</span>`).join('')}</div>
-    <div style="font-size:0.62rem;color:var(--dim);margin-top:8px;line-height:1.6">
+    <div style="font-size:1.55rem;color:var(--dim);margin-top:8px;line-height:1.6">
       Raw Isolate goes directly into the overnight oats · Creatine best taken pre or post workout · D3 50,000 IU is a weekly mega-dose (confirm with your doctor if needed)
     </div>
   `));
@@ -1135,7 +1135,7 @@ function renderPlan(el) {
       ].map(w=>`
         <div class="fw-row">
           <div class="fw-day" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-            <span style="color:var(--text);font-size:0.65rem;font-weight:700">${w.day}</span>
+            <span style="color:var(--text);font-size:1.62rem;font-weight:700">${w.day}</span>
             <span class="wo-tag ${w.tag==='gym'?'wt-gym':'wt-walk'}">${w.label}</span>
             ${w.together?'<span class="wo-tag wt-together">Together</span>':''}
           </div>
@@ -1147,7 +1147,7 @@ function renderPlan(el) {
   // ── VANESSA WORKOUT ──
   el.appendChild(card(`
     <div class="card-title">👑 Vanessa's Weekly Workout Plan</div>
-    <div style="background:var(--card2);border-radius:8px;padding:8px 10px;font-size:0.62rem;color:var(--dim);margin-bottom:10px;border-left:3px solid var(--pink)">
+    <div style="background:var(--card2);border-radius:8px;padding:8px 10px;font-size:1.55rem;color:var(--dim);margin-bottom:10px;border-left:3px solid var(--pink)">
       Mon–Sun home/Atlanta · Tue–Fri at CRNA rotation (school gym)
     </div>
     <div class="full-week">
@@ -1162,7 +1162,7 @@ function renderPlan(el) {
       ].map(w=>`
         <div class="fw-row">
           <div class="fw-day" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-            <span style="color:var(--text);font-size:0.65rem;font-weight:700">${w.day}</span>
+            <span style="color:var(--text);font-size:1.62rem;font-weight:700">${w.day}</span>
             <span class="wo-tag ${w.tag==='gym'?'wt-gym':w.tag==='plan'?'wt-plan':w.tag==='rest'?'wt-rest':'wt-walk'}">${w.label}</span>
             ${w.together?'<span class="wo-tag wt-together">Together</span>':''}
           </div>
@@ -1176,16 +1176,16 @@ function renderPlan(el) {
     <div class="card-title">📅 Strict vs Flex Schedule</div>
     <div style="display:flex;flex-direction:column;gap:8px">
       <div style="background:var(--card2);border-radius:10px;padding:10px 12px;border-left:3px solid var(--purple)">
-        <div style="font-size:0.65rem;font-weight:700;color:var(--purple);margin-bottom:4px">Mon–Fri · STRICT</div>
-        <div style="font-size:0.68rem;color:var(--muted);line-height:1.6">All 4 meals on plan · workout completed · no extra snacking · dessert only if fully compliant</div>
+        <div style="font-size:1.62rem;font-weight:700;color:var(--purple);margin-bottom:4px">Mon–Fri · STRICT</div>
+        <div style="font-size:1.7rem;color:var(--muted);line-height:1.6">All 4 meals on plan · workout completed · no extra snacking · dessert only if fully compliant</div>
       </div>
       <div style="background:var(--card2);border-radius:10px;padding:10px 12px;border-left:3px solid var(--green)">
-        <div style="font-size:0.65rem;font-weight:700;color:var(--green);margin-bottom:4px">Sat–Sun · FLEX</div>
-        <div style="font-size:0.68rem;color:var(--muted);line-height:1.6">Breakfast, lunch & snack stay on plan · dinner = free meal under 700 kcal · enjoy without guilt</div>
+        <div style="font-size:1.62rem;font-weight:700;color:var(--green);margin-bottom:4px">Sat–Sun · FLEX</div>
+        <div style="font-size:1.7rem;color:var(--muted);line-height:1.6">Breakfast, lunch & snack stay on plan · dinner = free meal under 700 kcal · enjoy without guilt</div>
       </div>
       <div style="background:var(--card2);border-radius:10px;padding:10px 12px;border-left:3px solid var(--gold)">
-        <div style="font-size:0.65rem;font-weight:700;color:var(--gold);margin-bottom:4px">🍫 Earned Dessert Rule</div>
-        <div style="font-size:0.68rem;color:var(--muted);line-height:1.6">The zucchini bread + Halo Top is only unlocked when ALL 4 main meals are hit AND the workout is done that day. Skip either = no dessert. Simple.</div>
+        <div style="font-size:1.62rem;font-weight:700;color:var(--gold);margin-bottom:4px">🍫 Earned Dessert Rule</div>
+        <div style="font-size:1.7rem;color:var(--muted);line-height:1.6">The zucchini bread + Halo Top is only unlocked when ALL 4 main meals are hit AND the workout is done that day. Skip either = no dessert. Simple.</div>
       </div>
     </div>
   `));
@@ -1196,7 +1196,7 @@ function renderPlan(el) {
     <div class="supp-tags">
       ${['Wild Alaskan Salmon','93/7 Ground Beef','Eggs (2 dozen)','Chobani 30g Protein Drinks','Quinoa (bulk)','Rolled Oats','Potato Bread','Provolone Cheese','Kinder\'s BBQ Sauce','Crunchy Peanut Butter','Chia Seeds','Almond Milk','Raspberries','Bananas','Plantains (5lb)','Avocados','Red Onions','Bell Peppers','Baby Bella Mushrooms','Halo Top Ice Cream'].map(i=>`<span class="supp-tag" style="background:var(--green-d);color:#86efac">${i}</span>`).join('')}
     </div>
-    <div style="font-size:0.6rem;color:var(--dim);margin-top:8px">Raw Isolate protein powder · Paleo zucchini bread ingredients (or buy pre-made)</div>
+    <div style="font-size:1.5rem;color:var(--dim);margin-top:8px">Raw Isolate protein powder · Paleo zucchini bread ingredients (or buy pre-made)</div>
   `));
 
   // ── MILESTONES ──
@@ -1216,16 +1216,16 @@ function renderPlan(el) {
         <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
           <div style="width:8px;height:8px;border-radius:50%;background:${ms.col};flex-shrink:0;margin-top:4px"></div>
           <div style="flex:1">
-            <div style="font-size:0.6rem;color:var(--dim)">${ms.date}</div>
-            <div style="font-size:0.7rem;font-weight:700;color:${ms.col};margin-top:1px">${ms.label}</div>
-            ${ms.m?`<div style="font-size:0.6rem;color:var(--muted);margin-top:2px">🏋️ ${ms.m} &nbsp;·&nbsp; 👑 ${ms.v}</div>`:''}
+            <div style="font-size:1.5rem;color:var(--dim)">${ms.date}</div>
+            <div style="font-size:1.75rem;font-weight:700;color:${ms.col};margin-top:1px">${ms.label}</div>
+            ${ms.m?`<div style="font-size:1.5rem;color:var(--muted);margin-top:2px">🏋️ ${ms.m} &nbsp;·&nbsp; 👑 ${ms.v}</div>`:''}
           </div>
         </div>`).join('')}
     </div>
   `));
 
   // ── CLOSING NOTE ──
-  el.appendChild(card(`<div class="motivation">"This plan was built for you both. Vanessa — whether you're in Atlanta or on rotation, your workouts and meals are already mapped out. Mayowa — same energy every single day. 26 lbs and 25 lbs to go. You'll hit it. 💍"<div style="font-size:0.55rem;opacity:0.5;margin-top:8px">Aug 28, 2026 · Mayowa & Vanessa</div></div>`));
+  el.appendChild(card(`<div class="motivation">"This plan was built for you both. Vanessa — whether you're in Atlanta or on rotation, your workouts and meals are already mapped out. Mayowa — same energy every single day. 26 lbs and 25 lbs to go. You'll hit it. 💍"<div style="font-size:1.38rem;opacity:0.5;margin-top:8px">Aug 28, 2026 · Mayowa & Vanessa</div></div>`));
 }
 
 // ════════════════════════════════════════════
