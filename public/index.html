@@ -1364,9 +1364,14 @@ function toggleSupps() {
 
 function setWorkout(done) {
   const log = getLog(cur, todayKey());
-  log.workout = done;
-  const wo = getTodayWorkout();
-  if (wo) log.workoutType = wo.label;
+  if (log.workout === done) {
+    log.workout = null;
+    log.workoutType = '';
+  } else {
+    log.workout = done;
+    const wo = getTodayWorkout();
+    if (wo) log.workoutType = wo.label;
+  }
   saveLog(cur, todayKey(), log);
   render();
 }
