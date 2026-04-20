@@ -419,7 +419,7 @@ function updateDateDisplay() {
 }
 function getLog(profile, key) {
   const s = store();
-  return s[profile]?.logs?.[key] || { weight:null, steps:null, water:null, meals:{}, workout:null, workoutType:'', supps:false };
+  return s[profile]?.logs?.[key] || { weight:null, steps:null, water:null, meals:{}, workout:null, workoutType:'', supps:false, extras:[] };
 }
 function saveLog(profile, key, log) {
   const s = store();
@@ -522,48 +522,82 @@ function renderToday(el) {
     </div>
   `));
 
-  // Meals
+  // Meals & Macros
   const non_dessert = p.meals.filter(m => !m.earned);
   const mealsDone = non_dessert.filter(m => log.meals[m.key]).length;
   const allDone = mealsDone === non_dessert.length && log.workout === true;
+  if (!log.extras) log.extras = [];
+
+  // Calculate daily totals
+  let totCal = 0, totP = 0, totC = 0, totF = 0;
+  p.meals.forEach(m => {
+    if (log.meals[m.key]) {
+      totCal += m.cal; totP += m.p; totC += m.c; totF += m.f;
+    }
+  });
+  log.extras.forEach(e => {
+    totCal += e.cal||0; totP += e.p||0; totC += e.c||0; totF += e.f||0;
+  });
+
+  const isV = cur === 'vanessa';
+  const themeColor = isV ? 'var(--pink)' : 'var(--purple)';
+
   el.appendChild(card(`
-    <div class="card-title">Meals — ${mealsCompleted}/${p.meals.length} checked</div>
-    <div class="bar-wrap" style="margin-bottom:10px">
-      <div class="bar" style="width:${Math.round(mealsDone/non_dessert.length*100)}%;background:linear-gradient(90deg,#059669,var(--green))"></div>
+    <div class="card-title">Daily Macro Tracker</div>
+    <div class="macro-grid">
+      <div class="mc"><div class="mc-val" style="color:${themeColor}">${totCal}</div><div class="mc-lbl">/ ${p.calories} cal</div></div>
+      <div class="mc"><div class="mc-val" style="color:var(--blue)">${totP}g</div><div class="mc-lbl">/ ${p.protein}g pro</div></div>
+      <div class="mc"><div class="mc-val" style="color:var(--gold)">${totC}g</div><div class="mc-lbl">/ ${p.carbs}g car</div></div>
+      <div class="mc"><div class="mc-val" style="color:var(--pink)">${totF}g</div><div class="mc-lbl">/ ${p.fat}g fat</div></div>
     </div>
+    <div class="bar-wrap" style="margin-top:12px;height:8px">
+      <div class="bar" style="width:${Math.min(100, Math.round(totCal/p.calories*100))}%;background:linear-gradient(90deg,var(--purple-d),${themeColor})"></div>
+    </div>
+  `));
+
+  el.appendChild(card(`
+    <div class="card-title">Planned Meals — ${mealsDone}/${non_dessert.length}</div>
     ${p.meals.map(m => {
       const done = !!log.meals[m.key];
       const locked = m.earned && !allDone;
-      const isWeekend = activeDate.getDay() === 0 || activeDate.getDay() === 6;
-      if (isWeekend && m.key === 'dinner') {
-        const val = typeof log.meals.dinner === 'string' ? log.meals.dinner : '';
-        const isDone = val.length > 0 || log.meals.dinner === true;
-        return `<div class="meal-item" style="display:flex;flex-direction:column;gap:6px;align-items:stretch;cursor:default;">
-          <div style="display:flex;align-items:center;gap:10px">
-            <div class="m-check ${isDone?'done':''}" onclick="toggleMeal('${m.key}')" style="cursor:pointer">
-              ${isDone ? `<svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ''}
-            </div>
-            <div class="m-icon">🌟</div>
-            <div class="m-info">
-              <div class="m-name">Flex Dinner</div>
-              <div class="m-detail">Enjoy your weekend free meal!</div>
-            </div>
-          </div>
-          <input type="text" id="inp-flex-dinner" class="inp" placeholder="What did you eat? (e.g. 800 kcal pizza)" value="${val}" oninput="autosave()" style="margin-top:4px;font-size:0.75rem;padding:8px 12px;">
-        </div>`;
-      }
-      return `<div class="meal-item" onclick="${locked ? 'showEarnedMsg()' : `toggleMeal('${m.key}')`}" style="${locked?'opacity:0.5':''}">
+      return \`<div class="meal-item" onclick="${locked ? 'showEarnedMsg()' : `toggleMeal('${m.key}')`}" style="${locked?'opacity:0.5':''}">
         <div class="m-check ${done?'done':''}">
-          ${done ? `<svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ''}
+          ${done ? \`<svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>\` : ''}
         </div>
         <div class="m-icon">${m.icon}</div>
         <div class="m-info">
           <div class="m-name">${m.name}</div>
           <div class="m-detail">${m.portion}</div>
-          ${m.earned ? `<div class="m-earned">${allDone?'🏆 Earned — enjoy it!':'🔒 Complete all meals + workout to earn'}</div>` : `<div class="m-kcal">${m.cal} kcal · ${m.p}g protein</div>`}
+          ${m.earned ? \`<div class="m-earned">${allDone?'🏆 Earned — enjoy it!':'🔒 Complete all meals + workout to earn'}</div>\` : \`<div class="m-kcal">${m.cal} kcal · ${m.p}g protein</div>\`}
         </div>
-      </div>`;
+      </div>\`;
     }).join('')}
+    
+    <div class="sep" style="margin:16px 0"></div>
+    <div class="card-title">Custom & Flex Meals</div>
+    
+    ${log.extras.length === 0 ? '<div style="font-size:0.6rem;color:var(--dim);text-align:center;margin-bottom:10px">No off-plan meals added today.</div>' : ''}
+    
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+      ${log.extras.map((ex, i) => \`
+        <div style="background:var(--card2);border-radius:10px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:0.75rem;font-weight:700;color:var(--text)">${ex.name}</div>
+            <div style="font-size:0.6rem;color:var(--dim);margin-top:2px">${ex.cal||0} cal · ${ex.p||0}P / ${ex.c||0}C / ${ex.f||0}F</div>
+          </div>
+          <div onclick="removeExtra(${i})" style="color:#ef4444;font-size:1.2rem;cursor:pointer;padding:4px">×</div>
+        </div>
+      \`).join('')}
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <input type="text" id="ex-name" class="inp" placeholder="Meal name" style="font-size:0.7rem;padding:8px 10px;grid-column:1/-1">
+      <input type="number" id="ex-cal" class="inp" placeholder="Calories" style="font-size:0.7rem;padding:8px 10px">
+      <input type="number" id="ex-p" class="inp" placeholder="Protein (g)" style="font-size:0.7rem;padding:8px 10px">
+      <input type="number" id="ex-c" class="inp" placeholder="Carbs (g)" style="font-size:0.7rem;padding:8px 10px">
+      <input type="number" id="ex-f" class="inp" placeholder="Fat (g)" style="font-size:0.7rem;padding:8px 10px">
+      <button onclick="addExtra()" style="grid-column:1/-1;padding:10px;background:var(--border);border:none;border-radius:10px;color:var(--text);font-size:0.7rem;font-weight:700;cursor:pointer;margin-top:4px">➕ Add Custom Food</button>
+    </div>
   `));
 
   // Workout
@@ -1376,16 +1410,37 @@ function setWorkout(done) {
   render();
 }
 
+function addExtra() {
+  const name = document.getElementById('ex-name').value.trim();
+  const cal = parseInt(document.getElementById('ex-cal').value) || 0;
+  const p = parseInt(document.getElementById('ex-p').value) || 0;
+  const c = parseInt(document.getElementById('ex-c').value) || 0;
+  const f = parseInt(document.getElementById('ex-f').value) || 0;
+  
+  if (!name) { toast('Please enter a meal name!'); return; }
+  
+  const log = getLog(cur, todayKey());
+  if (!log.extras) log.extras = [];
+  log.extras.push({ name, cal, p, c, f });
+  saveLog(cur, todayKey(), log);
+  render();
+}
+
+function removeExtra(index) {
+  const log = getLog(cur, todayKey());
+  log.extras.splice(index, 1);
+  saveLog(cur, todayKey(), log);
+  render();
+}
+
 function autosave() {
   const log = getLog(cur, todayKey());
   const w = document.getElementById('inp-weight')?.value;
   const st = document.getElementById('inp-steps')?.value;
   const wa = document.getElementById('inp-water')?.value;
-  const flexDin = document.getElementById('inp-flex-dinner')?.value;
   if (w !== undefined) log.weight = w ? parseFloat(w) : null;
   if (st !== undefined) log.steps = st ? parseInt(st) : null;
   if (wa !== undefined) log.water = wa ? parseFloat(wa) : null;
-  if (flexDin !== undefined) log.meals.dinner = flexDin ? flexDin : false;
   saveLog(cur, todayKey(), log);
   updateWeightDisplay();
 }

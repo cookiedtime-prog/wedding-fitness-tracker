@@ -26,7 +26,7 @@ export default async function handler(req, res) {
 
   const base = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}`;
   const auth = `Bearer ${access_token}`;
-  const HEADERS = ['Date','Profile','Weight','Steps','Water','Breakfast','Lunch','Snack','Dinner','Dessert','Workout','WorkoutType','Supps','UpdatedAt'];
+  const HEADERS = ['Date','Profile','Weight','Steps','Water','Breakfast','Lunch','Snack','Dinner','Dessert','Workout','WorkoutType','Supps','UpdatedAt','Extras'];
 
   // ── Auto-initialize sheet headers if first run ──
   const hRes = await fetch(`${base}/values/Sheet1!A1:N1`, { headers: { Authorization: auth } });
@@ -41,12 +41,12 @@ export default async function handler(req, res) {
 
   // ── GET: return all logs as structured JSON ──
   if (req.method === 'GET') {
-    const dataRes = await fetch(`${base}/values/Sheet1!A:N`, { headers: { Authorization: auth } });
+    const dataRes = await fetch(`${base}/values/Sheet1!A:O`, { headers: { Authorization: auth } });
     const { values = [] } = await dataRes.json();
 
     const result = { mayowa: { logs: {} }, vanessa: { logs: {} } };
     values.slice(1).forEach(row => {
-      const [date, profile, weight, steps, water, breakfast, lunch, snack, dinner, dessert, workout, workoutType, supps] = row;
+      const [date, profile, weight, steps, water, breakfast, lunch, snack, dinner, dessert, workout, workoutType, supps, updatedAt, extrasStr] = row;
       if (!date || !profile) return;
       const p = profile.toLowerCase();
       if (!result[p]) return;
@@ -63,7 +63,8 @@ export default async function handler(req, res) {
         },
         workout:     workout === 'true' ? true : workout === 'false' ? false : null,
         workoutType: workoutType || '',
-        supps:       supps === 'true'
+        supps:       supps === 'true',
+        extras:      extrasStr ? JSON.parse(extrasStr) : []
       };
     });
     return res.status(200).json(result);
@@ -98,12 +99,13 @@ export default async function handler(req, res) {
       log.workout === true ? 'true' : log.workout === false ? 'false' : '',
       log.workoutType || '',
       log.supps ? 'true' : 'false',
-      new Date().toISOString()
+      new Date().toISOString(),
+      JSON.stringify(log.extras || [])
     ]];
 
     if (rowIndex > 0) {
       // Update existing row
-      const range = encodeURIComponent(`Sheet1!A${rowIndex}:N${rowIndex}`);
+      const range = encodeURIComponent(`Sheet1!A${rowIndex}:O${rowIndex}`);
       const sheetRes = await fetch(`${base}/values/${range}?valueInputOption=RAW`, {
         method: 'PUT',
         headers: { Authorization: auth, 'Content-Type': 'application/json' },
@@ -115,7 +117,7 @@ export default async function handler(req, res) {
       }
     } else {
       // Append new row
-      const range = encodeURIComponent('Sheet1!A:N');
+      const range = encodeURIComponent('Sheet1!A:O');
       const sheetRes = await fetch(`${base}/values/${range}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`, {
         method: 'POST',
         headers: { Authorization: auth, 'Content-Type': 'application/json' },
