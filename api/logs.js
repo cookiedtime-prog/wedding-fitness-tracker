@@ -29,10 +29,10 @@ export default async function handler(req, res) {
   const HEADERS = ['Date','Profile','Weight','Steps','Water','Breakfast','Lunch','Snack','Dinner','Dessert','Workout','WorkoutType','Supps','UpdatedAt','Extras'];
 
   // ── Auto-initialize sheet headers if first run ──
-  const hRes = await fetch(`${base}/values/Sheet1!A1:N1`, { headers: { Authorization: auth } });
+  const hRes = await fetch(`${base}/values/Sheet1!A1:O1`, { headers: { Authorization: auth } });
   const hData = await hRes.json();
   if (hData.values?.[0]?.[0] !== 'Date') {
-    await fetch(`${base}/values/${encodeURIComponent('Sheet1!A1:N1')}?valueInputOption=RAW`, {
+    await fetch(`${base}/values/${encodeURIComponent('Sheet1!A1:O1')}?valueInputOption=RAW`, {
       method: 'PUT',
       headers: { Authorization: auth, 'Content-Type': 'application/json' },
       body: JSON.stringify({ values: [HEADERS] })
