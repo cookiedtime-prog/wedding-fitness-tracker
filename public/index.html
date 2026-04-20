@@ -767,97 +767,104 @@ function renderWorkouts(el) {
 // PROGRESS TAB
 // ════════════════════════════════════════════
 function renderProgress(el) {
-  const p = PROFILES[cur];
   const s = store();
-  const logs = s[cur]?.logs || {};
-  const dates = Object.keys(logs).sort();
-  const weights = dates.map(d => logs[d].weight).filter(Boolean);
-  const streak = calcStreak(logs);
-  const lastW = weights[weights.length-1] || p.startWeight;
-  const lost = (p.startWeight - lastW).toFixed(1);
+  
+  ['mayowa', 'vanessa'].forEach(pKey => {
+    const p = PROFILES[pKey];
+    const logs = s[pKey]?.logs || {};
+    const dates = Object.keys(logs).sort();
+    const weights = dates.map(d => logs[d].weight).filter(Boolean);
+    const streak = calcStreak(logs);
+    const lastW = weights[weights.length-1] || p.startWeight;
+    const lost = (p.startWeight - lastW).toFixed(1);
+    
+    const isV = pKey === 'vanessa';
+    const color = isV ? 'var(--pink)' : 'var(--purple)';
 
-  // Stats
-  el.appendChild(card(`
-    <div class="stats-row">
-      <div class="stat-box">
-        <div class="stat-val" style="color:var(--gold)">${streak}🔥</div>
-        <div class="stat-lbl">Day Streak</div>
+    // Stats
+    el.appendChild(card(`
+      <div style="font-size:0.68rem;font-weight:800;color:${color};margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">${p.emoji} ${p.name}'s Progress</div>
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-val" style="color:var(--gold)">${streak}🔥</div>
+          <div class="stat-lbl">Day Streak</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" style="color:${lost>=0?'var(--green)':'#ef4444'}">${lost>=0?'-':'+'}${Math.abs(lost)}</div>
+          <div class="stat-lbl">lbs lost</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">${lastW}</div>
+          <div class="stat-lbl">current lbs</div>
+        </div>
       </div>
-      <div class="stat-box">
-        <div class="stat-val" style="color:${lost>=0?'var(--green)':'#ef4444'}">${lost>=0?'-':'+'}${Math.abs(lost)}</div>
-        <div class="stat-lbl">lbs lost</div>
+    `));
+
+    // This week compliance
+    const weekLogs = getThisWeekLogs(logs);
+    const mealCompliance = weekLogs.filter(l => l && Object.values(l.meals||{}).filter(Boolean).length >= 4).length;
+    const woCompliance = weekLogs.filter(l => l && l.workout===true).length;
+    const stepsCompliance = weekLogs.filter(l => l && l.steps >= 10000).length;
+
+    // This week grid
+    const today = new Date();
+    const DAYS = ['S','M','T','W','T','F','S'];
+    const weekCells = weekLogs.map((l, i) => {
+      const d = new Date(); d.setDate(d.getDate() - (6-i));
+      const isToday = d.toDateString() === today.toDateString();
+      const isFuture = d > today && !isToday;
+      const hasLog = l && (l.weight || Object.values(l.meals||{}).some(Boolean));
+      let cls = 'future';
+      if (!isFuture && isToday) cls = 'today-ring';
+      else if (!isFuture && hasLog) cls = 'logged';
+      else if (!isFuture && !hasLog) cls = 'missed';
+      return `<div class="wk-cell">
+        <div class="wk-lbl">${DAYS[d.getDay()]}</div>
+        <div class="wk-dot ${cls}">${d.getDate()}</div>
+      </div>`;
+    }).join('');
+
+    el.appendChild(card(`
+      <div class="card-title">${p.name}'s Week</div>
+      <div class="wk-grid">${weekCells}</div>
+      <div class="legend" style="margin-top:8px">
+        <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div>Logged</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#7f1d1d"></div>Missed</div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--border)"></div>Future</div>
       </div>
-      <div class="stat-box">
-        <div class="stat-val">${lastW}</div>
-        <div class="stat-lbl">current lbs</div>
+      
+      <div style="margin-top:12px">
+        <div class="comp-row">
+          <div class="comp-head"><span>Meals (4/4)</span><span style="color:var(--green)">${mealCompliance}/7</span></div>
+          <div class="bar-wrap"><div class="bar" style="width:${Math.round(mealCompliance/7*100)}%;background:linear-gradient(90deg,#059669,var(--green))"></div></div>
+        </div>
+        <div class="comp-row">
+          <div class="comp-head"><span>Workouts</span><span style="color:${color}">${woCompliance}/7</span></div>
+          <div class="bar-wrap"><div class="bar" style="width:${Math.round(woCompliance/7*100)}%;background:linear-gradient(90deg,${isV?'var(--pink-d),var(--pink)':'var(--purple-d),var(--purple)'})"></div></div>
+        </div>
+        <div class="comp-row">
+          <div class="comp-head"><span>Steps (10k)</span><span style="color:var(--gold)">${stepsCompliance}/7</span></div>
+          <div class="bar-wrap"><div class="bar" style="width:${Math.round(stepsCompliance/7*100)}%;background:linear-gradient(90deg,#d97706,var(--gold))"></div></div>
+        </div>
       </div>
-    </div>
-  `));
+    `));
 
-  // This week compliance
-  const weekLogs = getThisWeekLogs(logs);
-  const mealCompliance = weekLogs.filter(l => l && Object.values(l.meals||{}).filter(Boolean).length >= 4).length;
-  const woCompliance = weekLogs.filter(l => l && l.workout===true).length;
-  const stepsCompliance = weekLogs.filter(l => l && l.steps >= 10000).length;
-
-  // This week grid
-  const today = new Date();
-  const DAYS = ['S','M','T','W','T','F','S'];
-  const weekCells = weekLogs.map((l, i) => {
-    const d = new Date(); d.setDate(d.getDate() - (6-i));
-    const isToday = d.toDateString() === today.toDateString();
-    const isFuture = d > today && !isToday;
-    const hasLog = l && (l.weight || Object.values(l.meals||{}).some(Boolean));
-    let cls = 'future';
-    if (!isFuture && isToday) cls = 'today-ring';
-    else if (!isFuture && hasLog) cls = 'logged';
-    else if (!isFuture && !hasLog) cls = 'missed';
-    return `<div class="wk-cell">
-      <div class="wk-lbl">${DAYS[d.getDay()]}</div>
-      <div class="wk-dot ${cls}">${d.getDate()}</div>
-    </div>`;
-  }).join('');
-
-  el.appendChild(card(`
-    <div class="card-title">This Week</div>
-    <div class="wk-grid">${weekCells}</div>
-    <div class="legend" style="margin-top:8px">
-      <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div>Logged</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#7f1d1d"></div>Missed</div>
-      <div class="leg-item"><div class="leg-dot" style="background:var(--border)"></div>Future</div>
-    </div>
-  `));
-
-  el.appendChild(card(`
-    <div class="card-title">This Week's Compliance</div>
-    <div class="comp-row">
-      <div class="comp-head"><span>Meals (4/4 days)</span><span style="color:var(--green)">${mealCompliance}/7 days</span></div>
-      <div class="bar-wrap"><div class="bar" style="width:${Math.round(mealCompliance/7*100)}%;background:linear-gradient(90deg,#059669,var(--green))"></div></div>
-    </div>
-    <div class="comp-row">
-      <div class="comp-head"><span>Workouts done</span><span style="color:var(--purple)">${woCompliance}/7 days</span></div>
-      <div class="bar-wrap"><div class="bar" style="width:${Math.round(woCompliance/7*100)}%;background:linear-gradient(90deg,var(--purple-d),var(--purple))"></div></div>
-    </div>
-    <div class="comp-row">
-      <div class="comp-head"><span>Step goal (10k)</span><span style="color:var(--gold)">${stepsCompliance}/7 days</span></div>
-      <div class="bar-wrap"><div class="bar" style="width:${Math.round(stepsCompliance/7*100)}%;background:linear-gradient(90deg,#d97706,var(--gold))"></div></div>
-    </div>
-  `));
-
-  // Weight chart
-  const chartCard = card(`
-    <div class="card-title">Weight History</div>
-    ${weights.length > 1 ? `<div class="chart-wrap"><canvas id="wt-chart"></canvas></div>
-    <div style="display:flex;justify-content:space-between;font-size:0.58rem;color:var(--dim);margin-top:6px">
-      <span>Start: ${p.startWeight} lbs</span><span>Goal: ${p.goalWeight} lbs</span>
-    </div>` : `<div style="text-align:center;padding:24px;color:var(--dim);font-size:0.78rem">Log your weight daily to see your chart 📈</div>`}
-  `);
-  el.appendChild(chartCard);
-  if (weights.length > 1) setTimeout(() => drawChart(weights, p.startWeight, p.goalWeight), 50);
+    // Weight chart
+    const chartId = `wt-chart-${pKey}`;
+    const chartCard = card(`
+      <div class="card-title">${p.name}'s Weight History</div>
+      ${weights.length > 1 ? `<div class="chart-wrap"><canvas id="${chartId}"></canvas></div>
+      <div style="display:flex;justify-content:space-between;font-size:0.58rem;color:var(--dim);margin-top:6px">
+        <span>Start: ${p.startWeight} lbs</span><span>Goal: ${p.goalWeight} lbs</span>
+      </div>` : `<div style="text-align:center;padding:24px;color:var(--dim);font-size:0.78rem">Log your weight daily to see your chart 📈</div>`}
+    `);
+    el.appendChild(chartCard);
+    if (weights.length > 1) setTimeout(() => drawChart(chartId, weights, p.startWeight, p.goalWeight, color), 50);
+  });
 }
 
-function drawChart(weights, start, goal) {
-  const canvas = document.getElementById('wt-chart');
+function drawChart(canvasId, weights, start, goal, lineColor) {
+  const canvas = document.getElementById(canvasId);
   if (!canvas) return;
   const W = canvas.offsetWidth, H = canvas.offsetHeight;
   canvas.width = W * window.devicePixelRatio;
@@ -895,21 +902,22 @@ function drawChart(weights, start, goal) {
 
   // Fill
   const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t+ah);
-  grad.addColorStop(0, 'rgba(168,85,247,0.3)'); grad.addColorStop(1, 'rgba(168,85,247,0)');
+  const rgb = lineColor === 'var(--pink)' ? '236,72,153' : '168,85,247';
+  grad.addColorStop(0, `rgba(${rgb},0.3)`); grad.addColorStop(1, `rgba(${rgb},0)`);
   ctx.beginPath();
   weights.forEach((w,i) => i===0 ? ctx.moveTo(toX(i),toY(w)) : ctx.lineTo(toX(i),toY(w)));
   ctx.lineTo(toX(weights.length-1), pad.t+ah); ctx.lineTo(toX(0), pad.t+ah); ctx.closePath();
   ctx.fillStyle = grad; ctx.fill();
 
   // Line
-  ctx.beginPath(); ctx.strokeStyle='#a855f7'; ctx.lineWidth=2.5; ctx.lineJoin='round';
+  ctx.beginPath(); ctx.strokeStyle=lineColor; ctx.lineWidth=2.5; ctx.lineJoin='round';
   weights.forEach((w,i) => i===0 ? ctx.moveTo(toX(i),toY(w)) : ctx.lineTo(toX(i),toY(w)));
   ctx.stroke();
 
   // Dots
   weights.forEach((w,i) => {
     const x=toX(i), y=toY(w);
-    ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2); ctx.fillStyle='#a855f7'; ctx.fill();
+    ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2); ctx.fillStyle=lineColor; ctx.fill();
     ctx.beginPath(); ctx.arc(x,y,2,0,Math.PI*2); ctx.fillStyle='#13131f'; ctx.fill();
   });
 }
