@@ -560,17 +560,17 @@ function renderToday(el) {
     ${p.meals.map(m => {
       const done = !!log.meals[m.key];
       const locked = m.earned && !allDone;
-      return \`<div class="meal-item" onclick="${locked ? 'showEarnedMsg()' : `toggleMeal('${m.key}')`}" style="${locked?'opacity:0.5':''}">
+      return `<div class="meal-item" onclick="${locked ? 'showEarnedMsg()' : `toggleMeal('${m.key}')`}" style="${locked?'opacity:0.5':''}">
         <div class="m-check ${done?'done':''}">
-          ${done ? \`<svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>\` : ''}
+          ${done ? `<svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ''}
         </div>
         <div class="m-icon">${m.icon}</div>
         <div class="m-info">
           <div class="m-name">${m.name}</div>
           <div class="m-detail">${m.portion}</div>
-          ${m.earned ? \`<div class="m-earned">${allDone?'🏆 Earned — enjoy it!':'🔒 Complete all meals + workout to earn'}</div>\` : \`<div class="m-kcal">${m.cal} kcal · ${m.p}g protein</div>\`}
+          ${m.earned ? `<div class="m-earned">${allDone?'🏆 Earned — enjoy it!':'🔒 Complete all meals + workout to earn'}</div>` : `<div class="m-kcal">${m.cal} kcal · ${m.p}g protein</div>`}
         </div>
-      </div>\`;
+      </div>`;
     }).join('')}
     
     <div class="sep" style="margin:16px 0"></div>
@@ -579,7 +579,7 @@ function renderToday(el) {
     ${log.extras.length === 0 ? '<div style="font-size:0.6rem;color:var(--dim);text-align:center;margin-bottom:10px">No off-plan meals added today.</div>' : ''}
     
     <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
-      ${log.extras.map((ex, i) => \`
+      ${log.extras.map((ex, i) => `
         <div style="background:var(--card2);border-radius:10px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center">
           <div>
             <div style="font-size:0.75rem;font-weight:700;color:var(--text)">${ex.name}</div>
@@ -587,7 +587,7 @@ function renderToday(el) {
           </div>
           <div onclick="removeExtra(${i})" style="color:#ef4444;font-size:1.2rem;cursor:pointer;padding:4px">×</div>
         </div>
-      \`).join('')}
+      `).join('')}
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
