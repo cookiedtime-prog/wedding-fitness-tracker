@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💍 Design Preview — Wedding Fitness Tracker</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0a14;
+    color: #fff;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .page-title {
+    text-align: center;
+    color: #888;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .page-subtitle {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #fff;
+  }
+
+  /* Phone frames layout */
+  .screens-row {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .screen-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .screen-label {
+    font-size: 0.7rem;
+    color: #a855f7;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .phone {
+    width: 320px;
+    background: #13131f;
+    border-radius: 32px;
+    overflow: hidden;
+    border: 2px solid #2a2a3e;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px #333;
+  }
+
+  /* ─── APP HEADER ─── */
+  .app-header {
+    background: linear-gradient(135deg, #5b21b6, #7c3aed, #a855f7);
+    padding: 20px 18px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .app-header::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .app-header::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; left: -10px;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    opacity: 0.7;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .header-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .countdown-row {
+    display: flex;
+    gap: 8px;
+  }
+  .cd-box {
+    background: rgba(0,0,0,0.25);
+    border-radius: 10px;
+    padding: 7px 10px;
+    text-align: center;
+    backdrop-filter: blur(4px);
+    flex: 1;
+  }
+  .cd-num { font-size: 1.3rem; font-weight: 800; line-height: 1; }
+  .cd-lbl { font-size: 0.5rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* ─── PROFILES ─── */
+  .profiles-row {
+    display: flex;
+    gap: 8px;
+    padding: 14px 14px 0;
+  }
+  .profile-pill {
+    flex: 1;
+    background: #1e1e30;
+    border-radius: 14px;
+    padding: 12px 10px;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .profile-pill.active {
+    border-color: #a855f7;
+    background: #26163d;
+  }
+  .profile-pill-emoji { font-size: 1.3rem; margin-bottom: 3px; }
+  .profile-pill-name { font-size: 0.75rem; font-weight: 700; }
+  .profile-pill-weight { font-size: 0.6rem; color: #888; margin-top: 1px; }
+  .profile-pill-cal { font-size: 0.55rem; color: #a855f7; font-weight: 600; margin-top: 2px; }
+
+  /* ─── TABS ─── */
+  .tabs {
+    display: flex;
+    padding: 10px 14px 0;
+    gap: 2px;
+  }
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #666;
+    border-bottom: 2px solid transparent;
+    letter-spacing: 0.3px;
+  }
+  .tab.active {
+    color: #a855f7;
+    border-bottom-color: #a855f7;
+  }
+
+  /* ─── SCROLLABLE BODY ─── */
+  .app-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ─── CARD ─── */
+  .card {
+    background: #1e1e30;
+    border-radius: 16px;
+    padding: 14px;
+  }
+  .card-title {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #666;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  /* Progress bar */
+  .prog-wrap { background: #2a2a3e; border-radius: 10px; height: 6px; overflow: hidden; margin-bottom: 4px; }
+  .prog-bar { height: 100%; border-radius: 10px; }
+  .prog-label { display: flex; justify-content: space-between; font-size: 0.55rem; color: #666; }
+
+  /* Macro row */
+  .macro-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; }
+  .macro-cell { background: #13131f; border-radius: 10px; padding: 8px 4px; }
+  .macro-val { font-size: 0.95rem; font-weight: 800; }
+  .macro-lbl { font-size: 0.5rem; color: #666; margin-top: 1px; }
+
+  /* Meal item */
+  .meal-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid #2a2a3e;
+  }
+  .meal-item:last-child { border-bottom: none; }
+  .meal-check {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid #444;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+  }
+  .meal-check.done { background: #a855f7; border-color: #a855f7; }
+  .meal-check.done::after { content: '✓'; color: #fff; font-weight: 900; }
+  .meal-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .meal-info { flex: 1; }
+  .meal-name { font-size: 0.75rem; font-weight: 700; }
+  .meal-detail { font-size: 0.58rem; color: #888; margin-top: 1px; line-height: 1.3; }
+  .meal-kcal { font-size: 0.58rem; color: #a855f7; font-weight: 600; }
+
+  /* Workout day pills */
+  .workout-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+  .wd-cell { text-align: center; }
+  .wd-label { font-size: 0.45rem; color: #666; margin-bottom: 2px; }
+  .wd-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.55rem;
+    font-weight: 700;
+    background: #2a2a3e;
+    color: #555;
+  }
+  .wd-dot.gym { background: #7c3aed; color: #fff; }
+  .wd-dot.walk { background: #065f46; color: #6ee7b7; }
+  .wd-dot.plan { background: #1e3a5f; color: #60a5fa; }
+  .wd-dot.rest { background: #1a1a2a; color: #444; }
+  .wd-dot.today { box-shadow: 0 0 0 2px #a855f7; }
+
+  .legend-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .legend-item { display: flex; align-items: center; gap: 4px; font-size: 0.55rem; color: #888; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* Stats row */
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .stat-box { background: #13131f; border-radius: 10px; padding: 10px 6px; text-align: center; }
+  .stat-val { font-size: 1rem; font-weight: 800; }
+  .stat-lbl { font-size: 0.5rem; color: #666; margin-top: 2px; }
+
+  /* Input mock */
+  .input-row { display: flex; gap: 6px; }
+  .input-mock {
+    flex: 1;
+    background: #13131f;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 9px 10px;
+    font-size: 0.7rem;
+    color: #888;
+  }
+  .input-mock.active { border-color: #a855f7; color: #fff; }
+
+  /* US tab */
+  .us-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .us-card { background: #13131f; border-radius: 14px; padding: 12px 10px; text-align: center; }
+  .us-avatar { font-size: 1.6rem; margin-bottom: 4px; }
+  .us-name { font-size: 0.65rem; font-weight: 700; margin-bottom: 6px; }
+  .us-check-row { display: flex; flex-direction: column; gap: 4px; }
+  .us-check-item { display: flex; align-items: center; justify-content: space-between; font-size: 0.58rem; color: #888; }
+  .us-check-item .badge { font-size: 0.55rem; font-weight: 700; padding: 2px 6px; border-radius: 6px; }
+  .badge-green { background: #064e3b; color: #6ee7b7; }
+  .badge-purple { background: #3b0764; color: #d8b4fe; }
+  .badge-gray { background: #1a1a2a; color: #555; }
+
+  .streak-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .streak-card { background: #13131f; border-radius: 12px; padding: 10px; text-align: center; }
+  .streak-num { font-size: 1.4rem; font-weight: 800; color: #f59e0b; }
+  .streak-lbl { font-size: 0.5rem; color: #666; }
+  .streak-name { font-size: 0.6rem; color: #888; margin-top: 2px; }
+
+  /* Motivation card */
+  .motivation {
+    background: linear-gradient(135deg, #3b0764, #1e3a5f);
+    border-radius: 14px;
+    padding: 14px;
+    text-align: center;
+    font-size: 0.7rem;
+    font-style: italic;
+    color: #d8b4fe;
+    line-height: 1.5;
+    border: 1px solid #5b21b6;
+  }
+
+  /* Bottom nav */
+  .bottom-nav {
+    display: flex;
+    background: #13131f;
+    border-top: 1px solid #2a2a3e;
+    padding: 10px 0;
+  }
+  .nav-item {
+    flex: 1;
+    text-align: center;
+    font-size: 0.55rem;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+  .nav-item.active { color: #a855f7; }
+  .nav-icon { font-size: 1rem; }
+
+  /* Save button */
+  .save-btn {
+    background: linear-gradient(135deg, #6d28d9, #a855f7);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  /* Divider */
+  .section-divider {
+    text-align: center;
+    font-size: 0.65rem;
+    color: #555;
+    margin: 32px 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #2a2a3e;
+  }
+
+  /* Color palette preview */
+  .palette {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin: 16px 0 40px;
+    flex-wrap: wrap;
+  }
+  .swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.45rem;
+    font-weight: 700;
+    color: #fff;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .swatch-label { font-size: 0.45rem; color: #666; text-align: center; margin-top: 4px; }
+
+  /* Small tag */
+  .new-tag {
+    display: inline-block;
+    background: #a855f7;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.45rem;
+    font-weight: 700;
+    color: #fff;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-title">Design Preview</div>
+<div class="page-subtitle">💍 Wedding Fitness Tracker — Mayowa & Vanessa</div>
+
+<!-- Color palette -->
+<div style="text-align:center;font-size:0.65rem;color:#666;margin-bottom:10px;">Color Palette</div>
+<div class="palette">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+    <div class="swatch" style="background:#5b21b6;"></div>
+    <div class="swatch-label">Deep<br>Purple</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+    <div class="swatch" style="background:#a855f7;"></div>
+    <div class="swatch-label">Accent<br>Purple</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+    <div class="swatch" style="background:#22c55e;"></div>
+    <div class="swatch-label">Done /<br>Green</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+    <div class="swatch" style="background:#f59e0b;"></div>
+    <div class="swatch-label">Streak<br>Gold</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+    <div class="swatch" style="background:#1e1e30;"></div>
+    <div class="swatch-label">Card<br>BG</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+    <div class="swatch" style="background:#0a0a14;border:1px solid #2a2a3e;"></div>
+    <div class="swatch-label">App<br>BG</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--  SCREEN 1 — TODAY (MAYOWA)                     -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="screens-row">
+
+  <div class="screen-wrap">
+    <div class="screen-label">Screen 1 — Today (Mayowa)</div>
+    <div class="phone">
+      <!-- Header -->
+      <div class="app-header">
+        <div class="header-eyebrow">💍 August 28, 2026</div>
+        <div class="header-title">Wedding Fitness Tracker</div>
+        <div class="countdown-row">
+          <div class="cd-box"><div class="cd-num">131</div><div class="cd-lbl">Days</div></div>
+          <div class="cd-box"><div class="cd-num">14</div><div class="cd-lbl">Hours</div></div>
+          <div class="cd-box"><div class="cd-num">32</div><div class="cd-lbl">Mins</div></div>
+        </div>
+      </div>
+
+      <!-- Profiles -->
+      <div class="profiles-row">
+        <div class="profile-pill active">
+          <div class="profile-pill-emoji">🏋️</div>
+          <div class="profile-pill-name">Mayowa</div>
+          <div class="profile-pill-weight">211 lbs</div>
+          <div class="profile-pill-cal">2,350 kcal</div>
+        </div>
+        <div class="profile-pill">
+          <div class="profile-pill-emoji">👑</div>
+          <div class="profile-pill-name">Vanessa</div>
+          <div class="profile-pill-weight">180 lbs</div>
+          <div class="profile-pill-cal">1,853 kcal</div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <div class="tab active">Today</div>
+        <div class="tab">Meals</div>
+        <div class="tab">Workouts</div>
+        <div class="tab">Us 💑</div>
+      </div>
+
+      <div class="app-body">
+        <!-- Journey progress -->
+        <div class="card">
+          <div class="card-title">Journey to Aug 28</div>
+          <div class="prog-wrap">
+            <div class="prog-bar" style="width:6%;background:linear-gradient(90deg,#6d28d9,#a855f7);"></div>
+          </div>
+          <div class="prog-label"><span>Start Apr 19</span><span>6% complete 💍</span><span>Aug 28</span></div>
+        </div>
+
+        <!-- Check-in -->
+        <div class="card">
+          <div class="card-title">Today's Check-In — Sunday, Apr 19</div>
+          <div class="input-row">
+            <div>
+              <div style="font-size:0.55rem;color:#666;margin-bottom:3px;">Weight (lbs)</div>
+              <div class="input-mock active">211</div>
+            </div>
+            <div>
+              <div style="font-size:0.55rem;color:#666;margin-bottom:3px;">Steps</div>
+              <div class="input-mock">8,400</div>
+            </div>
+            <div>
+              <div style="font-size:0.55rem;color:#666;margin-bottom:3px;">Water (L)</div>
+              <div class="input-mock">2.5</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meals -->
+        <div class="card">
+          <div class="card-title">Meals — 3/4 done</div>
+          <div class="prog-wrap" style="margin-bottom:10px;">
+            <div class="prog-bar" style="width:75%;background:linear-gradient(90deg,#059669,#34d399);"></div>
+          </div>
+
+          <div class="meal-item">
+            <div class="meal-check done"></div>
+            <div class="meal-icon">🌅</div>
+            <div class="meal-info">
+              <div class="meal-name">Breakfast</div>
+              <div class="meal-detail">Overnight oats · raspberry puree · chia seeds · PB · banana · almond milk</div>
+            </div>
+          </div>
+
+          <div class="meal-item">
+            <div class="meal-check done"></div>
+            <div class="meal-icon">🍔</div>
+            <div class="meal-info">
+              <div class="meal-name">Lunch</div>
+              <div class="meal-detail">Patty melt · 93% beef · provolone · potato bread · BBQ sauce</div>
+            </div>
+          </div>
+
+          <div class="meal-item">
+            <div class="meal-check done"></div>
+            <div class="meal-icon">🥛</div>
+            <div class="meal-info">
+              <div class="meal-name">Snack</div>
+              <div class="meal-detail">Chobani 30g Protein Yogurt Drink</div>
+              <div class="meal-kcal">30g protein</div>
+            </div>
+          </div>
+
+          <div class="meal-item">
+            <div class="meal-check"></div>
+            <div class="meal-icon">🍣</div>
+            <div class="meal-info">
+              <div class="meal-name">Dinner</div>
+              <div class="meal-detail">Salmon · quinoa · mushroom sauce</div>
+            </div>
+          </div>
+
+          <div class="meal-item" style="border-bottom:none;">
+            <div class="meal-check"></div>
+            <div class="meal-icon">🍫</div>
+            <div class="meal-info">
+              <div class="meal-name">Dessert</div>
+              <div class="meal-detail">Zucchini choc bread slice + Halo Top scoop</div>
+              <div class="meal-kcal">~300 kcal treat</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Today's workout -->
+        <div class="card">
+          <div class="card-title">Today's Workout — Sunday</div>
+          <div style="background:#13131f;border-radius:10px;padding:10px;margin-bottom:8px;">
+            <div style="font-size:0.65rem;font-weight:700;color:#a855f7;margin-bottom:4px;">🏋️ Leg Day (Together)</div>
+            <div style="font-size:0.58rem;color:#888;line-height:1.5;">Smith machine squats · Leg press · Dumbbell squats</div>
+          </div>
+          <div style="background:#13131f;border-radius:10px;padding:10px;margin-bottom:8px;">
+            <div style="font-size:0.65rem;font-weight:700;color:#60a5fa;margin-bottom:4px;">🏃 Cardio After</div>
+            <div style="font-size:0.58rem;color:#888;">20 min · Incline 12 · Speed 3.0</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <div style="background:#22c55e;border-radius:10px;padding:9px;text-align:center;font-size:0.65rem;font-weight:700;">✅ Done</div>
+            <div style="background:#1a1a2a;border:1px solid #333;border-radius:10px;padding:9px;text-align:center;font-size:0.65rem;font-weight:600;color:#666;">❌ Skipped</div>
+          </div>
+        </div>
+
+        <div class="save-btn">Save Today's Log 💾</div>
+      </div>
+
+      <!-- Bottom nav -->
+      <div class="bottom-nav">
+        <div class="nav-item active"><div class="nav-icon">📅</div>Today</div>
+        <div class="nav-item"><div class="nav-icon">🥗</div>Meals</div>
+        <div class="nav-item"><div class="nav-icon">💪</div>Workouts</div>
+        <div class="nav-item"><div class="nav-icon">📈</div>Progress</div>
+        <div class="nav-item"><div class="nav-icon">💑</div>Us</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!--  SCREEN 2 — MEAL PLAN (VANESSA)               -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="screen-wrap">
+    <div class="screen-label">Screen 2 — Meals Tab (Vanessa)</div>
+    <div class="phone">
+      <div class="app-header">
+        <div class="header-eyebrow">💍 August 28, 2026</div>
+        <div class="header-title">Wedding Fitness Tracker</div>
+        <div class="countdown-row">
+          <div class="cd-box"><div class="cd-num">131</div><div class="cd-lbl">Days</div></div>
+          <div class="cd-box"><div class="cd-num">14</div><div class="cd-lbl">Hours</div></div>
+          <div class="cd-box"><div class="cd-num">32</div><div class="cd-lbl">Mins</div></div>
+        </div>
+      </div>
+      <div class="profiles-row">
+        <div class="profile-pill">
+          <div class="profile-pill-emoji">🏋️</div>
+          <div class="profile-pill-name">Mayowa</div>
+          <div class="profile-pill-weight">211 lbs</div>
+          <div class="profile-pill-cal">2,350 kcal</div>
+        </div>
+        <div class="profile-pill active">
+          <div class="profile-pill-emoji">👑</div>
+          <div class="profile-pill-name">Vanessa</div>
+          <div class="profile-pill-weight">180 lbs</div>
+          <div class="profile-pill-cal">1,853 kcal</div>
+        </div>
+      </div>
+      <div class="tabs">
+        <div class="tab">Today</div>
+        <div class="tab active">Meals</div>
+        <div class="tab">Workouts</div>
+        <div class="tab">Us 💑</div>
+      </div>
+
+      <div class="app-body">
+        <!-- Macro targets -->
+        <div class="card">
+          <div class="card-title">Vanessa's Daily Targets</div>
+          <div class="macro-row">
+            <div class="macro-cell">
+              <div class="macro-val" style="color:#a855f7;">1,853</div>
+              <div class="macro-lbl">kcal</div>
+            </div>
+            <div class="macro-cell">
+              <div class="macro-val" style="color:#3b82f6;">179g</div>
+              <div class="macro-lbl">protein</div>
+            </div>
+            <div class="macro-cell">
+              <div class="macro-val" style="color:#f59e0b;">212g</div>
+              <div class="macro-lbl">carbs</div>
+            </div>
+            <div class="macro-cell">
+              <div class="macro-val" style="color:#ec4899;">50g</div>
+              <div class="macro-lbl">fat</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meals -->
+        <div class="card">
+          <div class="card-title">Meal Plan</div>
+
+          <div class="meal-item">
+            <div class="meal-icon">🌅</div>
+            <div class="meal-info">
+              <div class="meal-name">Breakfast — Overnight Oats</div>
+              <div class="meal-detail">40-50g oats · raspberry puree · chia seeds · crunchy PB · ½ cup almond milk</div>
+              <div style="font-size:0.5rem;color:#888;margin-top:2px;font-style:italic;">No banana, no yogurt</div>
+            </div>
+          </div>
+
+          <div class="meal-item">
+            <div class="meal-icon">🍔</div>
+            <div class="meal-info">
+              <div class="meal-name">Lunch — Patty Melt</div>
+              <div class="meal-detail">93% ground beef patty · 2 slices potato bread · provolone · Kinder's BBQ</div>
+            </div>
+          </div>
+
+          <div class="meal-item">
+            <div class="meal-icon">🥛</div>
+            <div class="meal-info">
+              <div class="meal-name">Snack — Chobani Protein Drink <span class="new-tag">NEW</span></div>
+              <div class="meal-detail">Vanilla Ice Cream · 14oz · 30g protein</div>
+            </div>
+          </div>
+
+          <div class="meal-item">
+            <div class="meal-icon">🍣</div>
+            <div class="meal-info">
+              <div class="meal-name">Dinner — Salmon + Quinoa</div>
+              <div class="meal-detail">Wild-caught Alaskan salmon · quinoa · mushroom sauce (baby bella)</div>
+            </div>
+          </div>
+
+          <div class="meal-item" style="border-bottom:none;">
+            <div class="meal-icon">🍫</div>
+            <div class="meal-info">
+              <div class="meal-name">Dessert — Treat <span class="new-tag">NEW</span></div>
+              <div class="meal-detail">Paleo choc zucchini bread slice + 1 scoop Halo Top</div>
+              <div class="meal-kcal">~300 kcal · earned after full plan compliance ✅</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cheat meal rule -->
+        <div style="background:#1a1a2e;border:1px solid #f59e0b33;border-radius:12px;padding:12px;">
+          <div style="font-size:0.6rem;font-weight:700;color:#f59e0b;margin-bottom:4px;">⚡ Dessert Rule</div>
+          <div style="font-size:0.58rem;color:#888;line-height:1.5;">Only have zucchini bread + Halo Top after a day of 100% plan execution. You earn it!</div>
+        </div>
+
+        <!-- Supplements -->
+        <div class="card">
+          <div class="card-title">Daily Supplements (Before Meal 1)</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">
+            ${['Fish oil 3g','Creatine 5g','D3 50k iu','K2 100mcg','Greens','Zinc 50mg','Magnesium 400mg','Multivitamin'].map(s =>
+              `<div style="background:#13131f;border-radius:6px;padding:3px 7px;font-size:0.55rem;color:#a855f7;">${s}</div>`
+            ).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><div class="nav-icon">📅</div>Today</div>
+        <div class="nav-item active"><div class="nav-icon">🥗</div>Meals</div>
+        <div class="nav-item"><div class="nav-icon">💪</div>Workouts</div>
+        <div class="nav-item"><div class="nav-icon">📈</div>Progress</div>
+        <div class="nav-item"><div class="nav-icon">💑</div>Us</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!--  SCREEN 3 — WORKOUTS                          -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="screen-wrap">
+    <div class="screen-label">Screen 3 — Workouts Tab</div>
+    <div class="phone">
+      <div class="app-header">
+        <div class="header-eyebrow">💍 August 28, 2026</div>
+        <div class="header-title">Wedding Fitness Tracker</div>
+        <div class="countdown-row">
+          <div class="cd-box"><div class="cd-num">131</div><div class="cd-lbl">Days</div></div>
+          <div class="cd-box"><div class="cd-num">14</div><div class="cd-lbl">Hours</div></div>
+          <div class="cd-box"><div class="cd-num">32</div><div class="cd-lbl">Mins</div></div>
+        </div>
+      </div>
+      <div class="profiles-row">
+        <div class="profile-pill active">
+          <div class="profile-pill-emoji">🏋️</div>
+          <div class="profile-pill-name">Mayowa</div>
+          <div class="profile-pill-weight">211 lbs</div>
+        </div>
+        <div class="profile-pill">
+          <div class="profile-pill-emoji">👑</div>
+          <div class="profile-pill-name">Vanessa</div>
+          <div class="profile-pill-weight">180 lbs</div>
+        </div>
+      </div>
+      <div class="tabs">
+        <div class="tab">Today</div>
+        <div class="tab">Meals</div>
+        <div class="tab active">Workouts</div>
+        <div class="tab">Us 💑</div>
+      </div>
+
+      <div class="app-body">
+        <!-- This week -->
+        <div class="card">
+          <div class="card-title">This Week — Mayowa</div>
+          <div class="workout-grid">
+            <div class="wd-cell">
+              <div class="wd-label">SUN</div>
+              <div class="wd-dot gym today">🏋️</div>
+            </div>
+            <div class="wd-cell">
+              <div class="wd-label">MON</div>
+              <div class="wd-dot gym">💪</div>
+            </div>
+            <div class="wd-cell">
+              <div class="wd-label">TUE</div>
+              <div class="wd-dot walk">🚶</div>
+            </div>
+            <div class="wd-cell">
+              <div class="wd-label">WED</div>
+              <div class="wd-dot walk">🚶</div>
+            </div>
+            <div class="wd-cell">
+              <div class="wd-label">THU</div>
+              <div class="wd-dot walk">🚶</div>
+            </div>
+            <div class="wd-cell">
+              <div class="wd-label">FRI</div>
+              <div class="wd-dot walk">🚶</div>
+            </div>
+            <div class="wd-cell">
+              <div class="wd-label">SAT</div>
+              <div class="wd-dot walk">🚶</div>
+            </div>
+          </div>
+          <div class="legend-row">
+            <div class="legend-item"><div class="legend-dot" style="background:#7c3aed;"></div>Gym</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#065f46;"></div>Walk</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#1e3a5f;"></div>V's Plan</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#1a1a2a;border:1px solid #333;"></div>Rest</div>
+          </div>
+        </div>
+
+        <!-- Mayowa workout plan -->
+        <div class="card">
+          <div class="card-title">Mayowa's Plan</div>
+
+          <div style="margin-bottom:8px;">
+            <div style="font-size:0.6rem;font-weight:700;color:#a855f7;margin-bottom:3px;">Sunday — Legs (Together w/ Vanessa)</div>
+            <div style="font-size:0.58rem;color:#888;line-height:1.5;">Smith machine squats · Leg press · Dumbbell squats</div>
+            <div style="font-size:0.55rem;color:#60a5fa;margin-top:3px;">+ Cardio: 20 min · Incline 12 · Speed 3.0</div>
+          </div>
+          <div style="height:1px;background:#2a2a3e;margin:8px 0;"></div>
+          <div style="margin-bottom:8px;">
+            <div style="font-size:0.6rem;font-weight:700;color:#a855f7;margin-bottom:3px;">Monday — Chest (Together w/ Vanessa)</div>
+            <div style="font-size:0.58rem;color:#888;line-height:1.5;">545 Method chest routine</div>
+          </div>
+          <div style="height:1px;background:#2a2a3e;margin:8px 0;"></div>
+          <div>
+            <div style="font-size:0.6rem;font-weight:700;color:#065f46;margin-bottom:3px;">Tue – Fri & Saturday — Walk</div>
+            <div style="font-size:0.58rem;color:#888;">1 hour outdoor walk · Sat walk with Vanessa</div>
+          </div>
+        </div>
+
+        <!-- Vanessa workout plan -->
+        <div class="card">
+          <div class="card-title">Vanessa's Plan <span style="font-size:0.5rem;color:#f59e0b;font-weight:600;">CRNA Rotations</span></div>
+
+          <div style="margin-bottom:8px;">
+            <div style="font-size:0.6rem;font-weight:700;color:#a855f7;margin-bottom:3px;">Sunday — Legs (Together w/ Mayowa)</div>
+            <div style="font-size:0.58rem;color:#888;">Smith machine squats · Leg press · Dumbbell squats</div>
+            <div style="font-size:0.55rem;color:#60a5fa;margin-top:3px;">+ Cardio: 20 min · Incline 10 · Speed 3.0</div>
+          </div>
+          <div style="height:1px;background:#2a2a3e;margin:8px 0;"></div>
+          <div style="margin-bottom:8px;">
+            <div style="font-size:0.6rem;font-weight:700;color:#a855f7;margin-bottom:3px;">Monday — Upper Body (Together before leaving)</div>
+            <div style="font-size:0.58rem;color:#888;">Upper Body & Core routine</div>
+          </div>
+          <div style="height:1px;background:#2a2a3e;margin:8px 0;"></div>
+          <div style="background:#1a1a2e;border:1px solid #1e3a5f;border-radius:10px;padding:8px;">
+            <div style="font-size:0.6rem;font-weight:700;color:#60a5fa;margin-bottom:4px;">Tue – Fri @ School (Solo Plan)</div>
+            <div style="font-size:0.55rem;color:#888;line-height:1.6;">
+              Tue: Lower Body (Glutes & Hamstrings)<br>
+              Wed: Arms & Core<br>
+              Thu: Lower Body (Glutes & Legs)<br>
+              Fri: Rest / Light walk
+            </div>
+          </div>
+          <div style="height:1px;background:#2a2a3e;margin:8px 0;"></div>
+          <div>
+            <div style="font-size:0.6rem;font-weight:700;color:#065f46;margin-bottom:3px;">Saturday — Walk with Mayowa</div>
+            <div style="font-size:0.58rem;color:#888;">10k steps + 1 hour walk together</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><div class="nav-icon">📅</div>Today</div>
+        <div class="nav-item"><div class="nav-icon">🥗</div>Meals</div>
+        <div class="nav-item active"><div class="nav-icon">💪</div>Workouts</div>
+        <div class="nav-item"><div class="nav-icon">📈</div>Progress</div>
+        <div class="nav-item"><div class="nav-icon">💑</div>Us</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end screens-row -->
+
+<!-- Divider -->
+<div class="section-divider">More Screens Below</div>
+
+<!-- Second row of screens -->
+<div class="screens-row" style="margin-top:0;">
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!--  SCREEN 4 — PROGRESS                          -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="screen-wrap">
+    <div class="screen-label">Screen 4 — Progress Tab</div>
+    <div class="phone">
+      <div class="app-header">
+        <div class="header-eyebrow">💍 August 28, 2026</div>
+        <div class="header-title">Wedding Fitness Tracker</div>
+        <div class="countdown-row">
+          <div class="cd-box"><div class="cd-num">131</div><div class="cd-lbl">Days</div></div>
+          <div class="cd-box"><div class="cd-num">14</div><div class="cd-lbl">Hours</div></div>
+          <div class="cd-box"><div class="cd-num">32</div><div class="cd-lbl">Mins</div></div>
+        </div>
+      </div>
+      <div class="profiles-row">
+        <div class="profile-pill active">
+          <div class="profile-pill-emoji">🏋️</div>
+          <div class="profile-pill-name">Mayowa</div>
+          <div class="profile-pill-weight">211 lbs</div>
+        </div>
+        <div class="profile-pill">
+          <div class="profile-pill-emoji">👑</div>
+          <div class="profile-pill-name">Vanessa</div>
+          <div class="profile-pill-weight">180 lbs</div>
+        </div>
+      </div>
+      <div class="tabs">
+        <div class="tab">Today</div>
+        <div class="tab">Meals</div>
+        <div class="tab">Workouts</div>
+        <div class="tab active">📈</div>
+        <div class="tab">💑</div>
+      </div>
+
+      <div class="app-body">
+        <!-- Stats -->
+        <div class="stats-row" style="margin-bottom:0;">
+          <div class="stat-box">
+            <div class="stat-val" style="color:#f59e0b;">7🔥</div>
+            <div class="stat-lbl">Day Streak</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" style="color:#22c55e;">-4.5</div>
+            <div class="stat-lbl">lbs lost</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">206.5</div>
+            <div class="stat-lbl">Current lbs</div>
+          </div>
+        </div>
+
+        <!-- This week -->
+        <div class="card">
+          <div class="card-title">This Week</div>
+          <div class="workout-grid">
+            <div class="wd-cell">
+              <div class="wd-label">SUN</div>
+              <div class="wd-dot gym today">✓</div>
+            </div>
+            <div class="wd-cell">
+              <div class="wd-label">MON</div>
+              <div class="wd-dot gym">✓</div>
+            </div>
+            <div class="wd-cell">
+              <div class="wd-label">TUE</div>
+              <div class="wd-dot gym">✓</div>
+            </div>
+            <div class="wd-cell">
+              <div class="wd-label">WED</div>
+              <div class="wd-dot gym">✓</div>
+            </div>
+            <div class="wd-cell">
+              <div class="wd-label">THU</div>
+              <div class="wd-dot gym">✓</div>
+            </div>
+            <div class="wd-cell">
+              <div class="wd-label">FRI</div>
+              <div class="wd-dot walk">✓</div>
+            </div>
+            <div class="wd-cell">
+              <div class="wd-label">SAT</div>
+              <div class="wd-dot future">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weight chart (static mockup) -->
+        <div class="card">
+          <div class="card-title">Weight History</div>
+          <svg viewBox="0 0 280 120" style="width:100%;height:120px;">
+            <!-- Grid lines -->
+            <line x1="10" y1="20" x2="270" y2="20" stroke="#2a2a3e" stroke-width="1"/>
+            <line x1="10" y1="50" x2="270" y2="50" stroke="#2a2a3e" stroke-width="1"/>
+            <line x1="10" y1="80" x2="270" y2="80" stroke="#2a2a3e" stroke-width="1"/>
+            <line x1="10" y1="110" x2="270" y2="110" stroke="#2a2a3e" stroke-width="1"/>
+            <!-- Gradient fill -->
+            <defs>
+              <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#a855f7" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M 20,90 L 55,82 L 90,78 L 125,74 L 160,68 L 195,62 L 230,58 L 265,52 L 265,110 L 20,110 Z" fill="url(#chartGrad)"/>
+            <!-- Line -->
+            <polyline points="20,90 55,82 90,78 125,74 160,68 195,62 230,58 265,52" fill="none" stroke="#a855f7" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+            <!-- Dots -->
+            <circle cx="20" cy="90" r="3.5" fill="#a855f7"/>
+            <circle cx="55" cy="82" r="3.5" fill="#a855f7"/>
+            <circle cx="90" cy="78" r="3.5" fill="#a855f7"/>
+            <circle cx="125" cy="74" r="3.5" fill="#a855f7"/>
+            <circle cx="160" cy="68" r="3.5" fill="#a855f7"/>
+            <circle cx="195" cy="62" r="3.5" fill="#a855f7"/>
+            <circle cx="230" cy="58" r="3.5" fill="#a855f7"/>
+            <circle cx="265" cy="52" r="4.5" fill="#a855f7"/>
+            <!-- Labels -->
+            <text x="20" y="118" fill="#555" font-size="7" text-anchor="middle">Apr 19</text>
+            <text x="265" y="118" fill="#555" font-size="7" text-anchor="middle">Today</text>
+            <text x="275" y="55" fill="#a855f7" font-size="7">206.5</text>
+            <text x="275" y="93" fill="#555" font-size="7">211</text>
+          </svg>
+          <div style="display:flex;justify-content:space-between;font-size:0.55rem;color:#666;margin-top:4px;">
+            <span>Start: 211 lbs</span><span>Goal: ~195 lbs</span>
+          </div>
+        </div>
+
+        <!-- Meal compliance -->
+        <div class="card">
+          <div class="card-title">This Week's Compliance</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+                <span style="font-size:0.6rem;">Meals hit</span>
+                <span style="font-size:0.6rem;color:#22c55e;">24/28</span>
+              </div>
+              <div class="prog-wrap"><div class="prog-bar" style="width:86%;background:linear-gradient(90deg,#059669,#34d399);"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+                <span style="font-size:0.6rem;">Workouts done</span>
+                <span style="font-size:0.6rem;color:#a855f7;">6/6</span>
+              </div>
+              <div class="prog-wrap"><div class="prog-bar" style="width:100%;background:linear-gradient(90deg,#6d28d9,#a855f7);"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+                <span style="font-size:0.6rem;">Step goal (10k)</span>
+                <span style="font-size:0.6rem;color:#f59e0b;">5/6 days</span>
+              </div>
+              <div class="prog-wrap"><div class="prog-bar" style="width:83%;background:linear-gradient(90deg,#d97706,#fbbf24);"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><div class="nav-icon">📅</div>Today</div>
+        <div class="nav-item"><div class="nav-icon">🥗</div>Meals</div>
+        <div class="nav-item"><div class="nav-icon">💪</div>Workouts</div>
+        <div class="nav-item active"><div class="nav-icon">📈</div>Progress</div>
+        <div class="nav-item"><div class="nav-icon">💑</div>Us</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!--  SCREEN 5 — US TAB                            -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="screen-wrap">
+    <div class="screen-label">Screen 5 — Us Tab 💑</div>
+    <div class="phone">
+      <div class="app-header">
+        <div class="header-eyebrow">💍 August 28, 2026</div>
+        <div class="header-title">Wedding Fitness Tracker</div>
+        <div class="countdown-row">
+          <div class="cd-box"><div class="cd-num">131</div><div class="cd-lbl">Days</div></div>
+          <div class="cd-box"><div class="cd-num">14</div><div class="cd-lbl">Hours</div></div>
+          <div class="cd-box"><div class="cd-num">32</div><div class="cd-lbl">Mins</div></div>
+        </div>
+      </div>
+      <div class="tabs">
+        <div class="tab">Today</div>
+        <div class="tab">Meals</div>
+        <div class="tab">Workouts</div>
+        <div class="tab">📈</div>
+        <div class="tab active">Us 💑</div>
+      </div>
+
+      <div class="app-body">
+        <!-- Big countdown -->
+        <div class="card" style="text-align:center;">
+          <div style="font-size:0.6rem;color:#888;margin-bottom:4px;">Days until the big day 💍</div>
+          <div style="font-size:3.5rem;font-weight:900;color:#a855f7;line-height:1;">131</div>
+          <div style="font-size:0.65rem;color:#666;margin-bottom:12px;">August 28, 2026</div>
+          <div class="prog-wrap">
+            <div class="prog-bar" style="width:6%;background:linear-gradient(90deg,#6d28d9,#a855f7);"></div>
+          </div>
+          <div style="font-size:0.55rem;color:#666;margin-top:4px;">6% of the journey complete</div>
+        </div>
+
+        <!-- Today's accountability -->
+        <div style="font-size:0.6rem;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:1px;text-align:center;margin-bottom:4px;">Today's Accountability</div>
+        <div class="us-grid">
+          <div class="us-card">
+            <div class="us-avatar">🏋️</div>
+            <div class="us-name">Mayowa</div>
+            <div class="us-check-row">
+              <div class="us-check-item">
+                <span>Meals</span>
+                <span class="badge badge-purple">3/4</span>
+              </div>
+              <div class="us-check-item">
+                <span>Workout</span>
+                <span class="badge badge-green">✅</span>
+              </div>
+              <div class="us-check-item">
+                <span>Steps</span>
+                <span class="badge badge-green">8.4k</span>
+              </div>
+              <div class="us-check-item">
+                <span>Weight</span>
+                <span class="badge badge-purple">211</span>
+              </div>
+            </div>
+          </div>
+          <div class="us-card">
+            <div class="us-avatar">👑</div>
+            <div class="us-name">Vanessa</div>
+            <div class="us-check-row">
+              <div class="us-check-item">
+                <span>Meals</span>
+                <span class="badge badge-green">4/4</span>
+              </div>
+              <div class="us-check-item">
+                <span>Workout</span>
+                <span class="badge badge-green">✅</span>
+              </div>
+              <div class="us-check-item">
+                <span>Steps</span>
+                <span class="badge badge-gray">—</span>
+              </div>
+              <div class="us-check-item">
+                <span>Weight</span>
+                <span class="badge badge-purple">179</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Streaks -->
+        <div style="font-size:0.6rem;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:1px;text-align:center;margin:4px 0;">Streaks 🔥</div>
+        <div class="streak-row">
+          <div class="streak-card">
+            <div style="font-size:1.4rem;">🔥</div>
+            <div class="streak-num">12</div>
+            <div class="streak-lbl">day streak</div>
+            <div class="streak-name">Mayowa</div>
+          </div>
+          <div class="streak-card">
+            <div style="font-size:1.4rem;">🔥</div>
+            <div class="streak-num">9</div>
+            <div class="streak-lbl">day streak</div>
+            <div class="streak-name">Vanessa</div>
+          </div>
+        </div>
+
+        <!-- Weight progress side by side -->
+        <div class="card">
+          <div class="card-title">Combined Progress</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="text-align:center;">
+              <div style="font-size:0.6rem;color:#888;margin-bottom:4px;">Mayowa</div>
+              <div style="font-size:0.7rem;color:#22c55e;font-weight:700;">-4.5 lbs</div>
+              <div style="font-size:0.55rem;color:#666;">211 → 206.5</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:0.6rem;color:#888;margin-bottom:4px;">Vanessa</div>
+              <div style="font-size:0.7rem;color:#22c55e;font-weight:700;">-1 lb</div>
+              <div style="font-size:0.55rem;color:#666;">180 → 179</div>
+            </div>
+          </div>
+          <div style="margin-top:8px;text-align:center;font-size:0.58rem;color:#a855f7;font-weight:600;">Combined: -5.5 lbs down 💪</div>
+        </div>
+
+        <!-- Motivation -->
+        <div class="motivation">
+          "131 days. Two people. One goal.<br>You've got this — together. 💍"
+          <div style="font-size:0.55rem;opacity:0.6;margin-top:6px;">Started Apr 19, 2026 · Goal Aug 28, 2026</div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><div class="nav-icon">📅</div>Today</div>
+        <div class="nav-item"><div class="nav-icon">🥗</div>Meals</div>
+        <div class="nav-item"><div class="nav-icon">💪</div>Workouts</div>
+        <div class="nav-item"><div class="nav-icon">📈</div>Progress</div>
+        <div class="nav-item active"><div class="nav-icon">💑</div>Us</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end second screens-row -->
+
+<div style="text-align:center;margin-top:48px;color:#555;font-size:0.7rem;">
+  Design Preview — Not interactive · Open design-preview.html in your browser
+</div>
+
+</body>
+</html>

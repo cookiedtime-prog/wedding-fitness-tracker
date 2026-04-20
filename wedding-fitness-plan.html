@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💍 Wedding Fitness Plan — Mayowa & Vanessa</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0a14;
+    color: #e2e8f0;
+    line-height: 1.6;
+  }
+
+  /* ─── PAGE HEADER ─── */
+  .page-header {
+    background: linear-gradient(135deg, #4c1d95, #6d28d9, #a855f7);
+    padding: 48px 40px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .page-header::after {
+    content: ''; position: absolute; bottom: -40px; left: -40px;
+    width: 140px; height: 140px; border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .page-header h1 { font-size: 2rem; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .page-header .subtitle { font-size: 0.9rem; opacity: 0.75; }
+  .wedding-date-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 30px;
+    padding: 6px 18px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 16px;
+    backdrop-filter: blur(4px);
+  }
+
+  /* ─── LAYOUT ─── */
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #2a2a3e;
+  }
+  .section-header:first-child { margin-top: 0; }
+  .section-icon { font-size: 1.4rem; }
+  .section-title { font-size: 1.1rem; font-weight: 800; color: #e2e8f0; }
+  .section-tag {
+    background: #3b0764; color: #d8b4fe;
+    border-radius: 6px; padding: 2px 10px;
+    font-size: 0.65rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-left: auto;
+  }
+
+  /* ─── PROFILE CARDS ─── */
+  .profile-card {
+    background: #1a1a2e;
+    border-radius: 20px;
+    padding: 24px;
+    border: 1px solid #2a2a3e;
+  }
+  .profile-card.mayowa { border-top: 3px solid #a855f7; }
+  .profile-card.vanessa { border-top: 3px solid #ec4899; }
+  .profile-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .profile-emoji {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+  }
+  .profile-emoji.m { background: #2d1b4e; }
+  .profile-emoji.v { background: #1b2d4e; }
+  .profile-name { font-size: 1.2rem; font-weight: 800; }
+  .profile-stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+  .stat-cell {
+    background: #13131f;
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+  .stat-label { font-size: 0.58rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+  .stat-value { font-size: 1.1rem; font-weight: 800; color: #e2e8f0; }
+  .stat-sub { font-size: 0.6rem; color: #888; margin-top: 1px; }
+
+  /* ─── MACRO TARGETS ─── */
+  .macro-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    background: #13131f;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 8px;
+  }
+  .macro-cell { text-align: center; }
+  .macro-val { font-size: 1.3rem; font-weight: 900; margin-bottom: 2px; }
+  .macro-lbl { font-size: 0.55rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; }
+  .macro-sub { font-size: 0.5rem; color: #888; margin-top: 1px; }
+
+  /* ─── CALORIE MATH EXPLAINER ─── */
+  .math-box {
+    background: #13131f;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 16px;
+    border-left: 3px solid #a855f7;
+  }
+  .math-box.vanessa { border-left-color: #ec4899; }
+  .math-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 0.8rem;
+    color: #aaa;
+  }
+  .math-row.total {
+    border-top: 1px solid #2a2a3e;
+    margin-top: 6px;
+    padding-top: 10px;
+    color: #e2e8f0;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .math-row .val { font-weight: 700; color: #e2e8f0; }
+  .math-row .val.green { color: #22c55e; }
+  .math-row .val.purple { color: #a855f7; }
+  .math-row .val.pink { color: #ec4899; }
+
+  /* ─── MEAL CARDS ─── */
+  .meal-plan-section { margin-bottom: 32px; }
+  .meal-plan-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #666;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .meal-card {
+    background: #1a1a2e;
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 10px;
+    border: 1px solid #2a2a3e;
+  }
+  .meal-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .meal-icon-lg { font-size: 1.4rem; }
+  .meal-name-lg { font-weight: 700; font-size: 0.95rem; }
+  .meal-macros-inline {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .m-badge {
+    font-size: 0.58rem;
+    padding: 2px 7px;
+    border-radius: 6px;
+    font-weight: 700;
+  }
+  .m-cal { background: #2d1b4e; color: #c4b5fd; }
+  .m-pro { background: #1b2d4e; color: #93c5fd; }
+  .m-car { background: #2d2200; color: #fcd34d; }
+  .m-fat { background: #2d1429; color: #f9a8d4; }
+
+  .ingredients-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .ingredients-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: #c4cdd8;
+    padding: 3px 0;
+    border-bottom: 1px solid #1e1e2e;
+  }
+  .ingredients-list li:last-child { border-bottom: none; }
+  .ing-amount {
+    font-weight: 700;
+    color: #a855f7;
+    min-width: 80px;
+    flex-shrink: 0;
+    font-size: 0.72rem;
+  }
+  .ing-amount.v { color: #ec4899; }
+  .ing-name { flex: 1; }
+  .ing-macros { font-size: 0.6rem; color: #555; white-space: nowrap; margin-left: auto; }
+
+  .meal-note {
+    background: #13131f;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.7rem;
+    color: #888;
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  /* Meal totals row */
+  .meal-total-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #2a2a3e;
+    flex-wrap: wrap;
+  }
+
+  /* ─── DAILY TOTAL TABLE ─── */
+  .daily-total-box {
+    background: #1a1a2e;
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 16px;
+    border: 1px solid #2a2a3e;
+  }
+  .daily-total-title {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+  .total-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
+  .total-cell { text-align: center; background: #13131f; border-radius: 10px; padding: 12px 8px; }
+  .total-val { font-size: 1.4rem; font-weight: 900; }
+  .total-lbl { font-size: 0.55rem; color: #666; margin-top: 2px; }
+  .strict-flex-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .mode-box {
+    background: #13131f;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+  .mode-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .mode-strict .mode-label { color: #a855f7; }
+  .mode-flex .mode-label { color: #f59e0b; }
+  .mode-kcal { font-size: 1.1rem; font-weight: 800; }
+  .mode-breakdown { font-size: 0.6rem; color: #666; margin-top: 3px; }
+
+  /* ─── WORKOUT SCHEDULE ─── */
+  .week-table { width: 100%; border-collapse: collapse; }
+  .week-table th {
+    padding: 10px 12px;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+    border-bottom: 1px solid #2a2a3e;
+    text-align: left;
+    font-weight: 700;
+  }
+  .week-table td {
+    padding: 12px;
+    font-size: 0.78rem;
+    border-bottom: 1px solid #1a1a2e;
+    vertical-align: top;
+  }
+  .week-table tr:last-child td { border-bottom: none; }
+  .day-label { font-weight: 800; font-size: 0.65rem; color: #888; }
+  .workout-type {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .wt-gym { background: #2d1b4e; color: #c4b5fd; }
+  .wt-cardio { background: #1b2d1b; color: #86efac; }
+  .wt-walk { background: #1b2d1b; color: #6ee7b7; }
+  .wt-rest { background: #1a1a2a; color: #4b5563; }
+  .wt-plan { background: #1b2540; color: #93c5fd; }
+  .wt-together { background: #2d1429; color: #f9a8d4; }
+
+  .exercise-list { font-size: 0.72rem; color: #94a3b8; line-height: 1.6; margin-top: 4px; }
+  .exercise-list span { color: #64748b; }
+
+  /* ─── SUPPLEMENT STACK ─── */
+  .supp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .supp-card {
+    background: #1a1a2e;
+    border-radius: 12px;
+    padding: 14px;
+    border: 1px solid #2a2a3e;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .supp-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .supp-name { font-size: 0.78rem; font-weight: 700; }
+  .supp-dose { font-size: 0.65rem; color: #a855f7; }
+  .supp-timing { font-size: 0.6rem; color: #666; margin-top: 1px; }
+
+  /* ─── STRICT / FLEX GUIDE ─── */
+  .mode-guide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .mode-guide-card {
+    background: #1a1a2e;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #2a2a3e;
+  }
+  .mode-guide-card.strict { border-top: 3px solid #a855f7; }
+  .mode-guide-card.flex { border-top: 3px solid #f59e0b; }
+  .mode-guide-title { font-weight: 800; font-size: 0.9rem; margin-bottom: 12px; }
+  .mode-guide-card.strict .mode-guide-title { color: #c4b5fd; }
+  .mode-guide-card.flex .mode-guide-title { color: #fcd34d; }
+  .mode-guide-list { display: flex; flex-direction: column; gap: 6px; }
+  .mode-guide-item {
+    display: flex;
+    gap: 8px;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    align-items: flex-start;
+  }
+  .mode-guide-item .dot { color: #a855f7; flex-shrink: 0; margin-top: 2px; }
+  .mode-guide-card.flex .mode-guide-item .dot { color: #f59e0b; }
+
+  /* ─── PROGRESS MILESTONES ─── */
+  .milestones {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .milestone-card {
+    background: #1a1a2e;
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+    border: 1px solid #2a2a3e;
+    position: relative;
+  }
+  .milestone-week { font-size: 0.55rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .milestone-weights { font-size: 0.7rem; font-weight: 700; color: #c4b5fd; }
+  .milestone-date { font-size: 0.58rem; color: #555; margin-top: 4px; }
+
+  /* ─── TAGS ─── */
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.58rem;
+    font-weight: 700;
+  }
+  .tag-green { background: #064e3b; color: #6ee7b7; }
+  .tag-purple { background: #2d1b4e; color: #c4b5fd; }
+  .tag-yellow { background: #451a03; color: #fcd34d; }
+  .tag-pink { background: #2d1429; color: #f9a8d4; }
+  .tag-blue { background: #1b2d4e; color: #93c5fd; }
+
+  /* ─── CALLOUT ─── */
+  .callout {
+    background: #1a1a2e;
+    border-radius: 14px;
+    padding: 16px 18px;
+    border-left: 4px solid #f59e0b;
+    margin-bottom: 16px;
+    font-size: 0.78rem;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+  .callout-title { font-weight: 700; color: #fcd34d; margin-bottom: 4px; font-size: 0.8rem; }
+
+  /* ─── DIVIDER ─── */
+  .divider { height: 1px; background: #1e1e2e; margin: 32px 0; }
+
+  /* ─── PRINT / SHARE ─── */
+  @media print {
+    body { background: #fff; color: #111; }
+    .page-header { background: #6d28d9; }
+  }
+
+  @media (max-width: 640px) {
+    .two-col, .mode-guide, .strict-flex-row { grid-template-columns: 1fr; }
+    .milestones { grid-template-columns: repeat(2, 1fr); }
+    .three-col { grid-template-columns: 1fr 1fr; }
+    .macro-strip, .total-grid { grid-template-columns: repeat(2, 1fr); }
+    .supp-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  HEADER                                    -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="page-header">
+  <div style="font-size:1.8rem;margin-bottom:10px;">💍</div>
+  <h1>Wedding Fitness Plan</h1>
+  <div class="subtitle">Mayowa & Vanessa — The Road to August 28, 2026</div>
+  <div class="wedding-date-badge" style="background:rgba(34,197,94,0.25);border-color:rgba(34,197,94,0.5);">🎯 Goal: Hit target weights by August 14 — 2 weeks before the wedding</div>
+  <div class="wedding-date-badge" style="margin-top:10px;">~117 Days to Goal · ~16.7 Weeks · Starting April 19, 2026</div>
+</div>
+
+<div class="container">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SECTION 1 — THE GOALS                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-icon">🎯</span>
+    <span class="section-title">The Goals</span>
+    <span class="section-tag">🎯 Goal by Aug 14 · 16.7 Weeks</span>
+  </div>
+
+  <div class="two-col" style="margin-bottom:20px;">
+    <div class="profile-card mayowa">
+      <div class="profile-header">
+        <div class="profile-emoji m">🏋️</div>
+        <div>
+          <div class="profile-name">Mayowa</div>
+          <div style="font-size:0.7rem;color:#888;">5'11" · Male · Moderately Active</div>
+        </div>
+      </div>
+      <div class="profile-stats-row">
+        <div class="stat-cell">
+          <div class="stat-label">Start Weight</div>
+          <div class="stat-value">211 lbs</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Goal Weight</div>
+          <div class="stat-value" style="color:#22c55e;">185 lbs</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">To Lose</div>
+          <div class="stat-value" style="color:#a855f7;">26 lbs</div>
+          <div class="stat-sub">by Aug 14</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Rate</div>
+          <div class="stat-value">~1.6</div>
+          <div class="stat-sub">lbs/week</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-card vanessa">
+      <div class="profile-header">
+        <div class="profile-emoji v">👑</div>
+        <div>
+          <div class="profile-name">Vanessa</div>
+          <div style="font-size:0.7rem;color:#888;">5'4" · Female · Active (CRNA Rotations)</div>
+        </div>
+      </div>
+      <div class="profile-stats-row">
+        <div class="stat-cell">
+          <div class="stat-label">Start Weight</div>
+          <div class="stat-value">180 lbs</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Goal Weight</div>
+          <div class="stat-value" style="color:#22c55e;">155 lbs</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">To Lose</div>
+          <div class="stat-value" style="color:#ec4899;">25 lbs</div>
+          <div class="stat-sub">by Aug 14</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Rate</div>
+          <div class="stat-value">~1.5</div>
+          <div class="stat-sub">lbs/week</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress milestones -->
+  <div style="margin-bottom:8px;font-size:0.65rem;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Expected Weight Milestones</div>
+  <div class="milestones" style="margin-bottom:24px;">
+    <div class="milestone-card">
+      <div class="milestone-week">Week 4</div>
+      <div style="font-size:0.58rem;color:#888;margin-bottom:4px;">Mayowa / Vanessa</div>
+      <div class="milestone-weights">204.5 / 174 lbs</div>
+      <div class="milestone-date">~May 17</div>
+    </div>
+    <div class="milestone-card">
+      <div class="milestone-week">Week 8</div>
+      <div style="font-size:0.58rem;color:#888;margin-bottom:4px;">Mayowa / Vanessa</div>
+      <div class="milestone-weights">198 / 168 lbs</div>
+      <div class="milestone-date">~Jun 14</div>
+    </div>
+    <div class="milestone-card">
+      <div class="milestone-week">Week 13</div>
+      <div style="font-size:0.58rem;color:#888;margin-bottom:4px;">Mayowa / Vanessa</div>
+      <div class="milestone-weights">190 / 160 lbs</div>
+      <div class="milestone-date">~Jul 19</div>
+    </div>
+    <div class="milestone-card" style="border-color:#22c55e;">
+      <div class="milestone-week" style="color:#22c55e;">🎯 GOAL HIT</div>
+      <div style="font-size:0.58rem;color:#888;margin-bottom:4px;">Mayowa / Vanessa</div>
+      <div class="milestone-weights" style="color:#22c55e;">185 / 155 lbs</div>
+      <div class="milestone-date">Aug 14 — 2 wks early!</div>
+    </div>
+  </div>
+  <div style="background:#064e3b;border:1px solid #22c55e44;border-radius:12px;padding:14px 18px;margin-bottom:24px;font-size:0.78rem;color:#6ee7b7;line-height:1.6;">
+    <strong>🏆 Why hit goals 2 weeks early?</strong> The 2 weeks from Aug 14–28 become your <strong>maintenance phase</strong> — you eat at maintenance calories, water retention normalises, muscles look fuller, and you walk down the aisle feeling your absolute best. Not depleted, not dieting. Locked in.
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SECTION 2 — CALORIE & MACRO TARGETS       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-icon">🔢</span>
+    <span class="section-title">Calorie & Macro Targets</span>
+    <span class="section-tag">Science-Based</span>
+  </div>
+
+  <div class="two-col">
+    <!-- MAYOWA MATH -->
+    <div>
+      <div style="font-size:0.75rem;font-weight:700;color:#c4b5fd;margin-bottom:10px;">🏋️ Mayowa's Numbers</div>
+      <div class="math-box">
+        <div class="math-row"><span>BMR (Mifflin-St Jeor)</span><span class="val">1,938 kcal</span></div>
+        <div class="math-row"><span>Activity Factor (1.55×)</span><span class="val">+1,066 kcal</span></div>
+        <div class="math-row" style="padding-bottom:6px;border-bottom:1px solid #2a2a3e;"><span>TDEE (maintenance)</span><span class="val purple">3,004 kcal</span></div>
+        <div class="math-row"><span>Daily deficit (goal by Aug 14)</span><span class="val" style="color:#ef4444;">−800 kcal</span></div>
+        <div class="math-row total"><span>Weekday Target</span><span class="val purple">2,200 kcal</span></div>
+        <div class="math-row" style="font-size:0.7rem;"><span>Expected loss</span><span class="val green">~1.6 lbs/week → 185 lbs by Aug 14 ✓</span></div>
+        <div class="math-row" style="font-size:0.7rem;"><span>Aug 14–28: switch to maintenance</span><span class="val green">~3,000 kcal</span></div>
+      </div>
+      <div class="macro-strip">
+        <div class="macro-cell">
+          <div class="macro-val" style="color:#c4b5fd;">2,200</div>
+          <div class="macro-lbl">Calories</div>
+          <div class="macro-sub">strict days</div>
+        </div>
+        <div class="macro-cell">
+          <div class="macro-val" style="color:#93c5fd;">185g</div>
+          <div class="macro-lbl">Protein</div>
+          <div class="macro-sub">1g per goal lb</div>
+        </div>
+        <div class="macro-cell">
+          <div class="macro-val" style="color:#fcd34d;">210g</div>
+          <div class="macro-lbl">Carbs</div>
+          <div class="macro-sub">fuel & performance</div>
+        </div>
+        <div class="macro-cell">
+          <div class="macro-val" style="color:#f9a8d4;">70g</div>
+          <div class="macro-lbl">Fat</div>
+          <div class="macro-sub">hormones & health</div>
+        </div>
+      </div>
+      <div style="font-size:0.65rem;color:#555;text-align:center;margin-top:6px;">Weekend flex: up to 2,500 kcal (free meal replaces dinner)</div>
+    </div>
+
+    <!-- VANESSA MATH -->
+    <div>
+      <div style="font-size:0.75rem;font-weight:700;color:#f9a8d4;margin-bottom:10px;">👑 Vanessa's Numbers</div>
+      <div class="math-box vanessa">
+        <div class="math-row"><span>BMR (Mifflin-St Jeor)</span><span class="val">1,531 kcal</span></div>
+        <div class="math-row"><span>Activity Factor (1.6× — rotations)</span><span class="val">+918 kcal</span></div>
+        <div class="math-row" style="padding-bottom:6px;border-bottom:1px solid #2a2a3e;"><span>TDEE (maintenance)</span><span class="val pink">2,449 kcal</span></div>
+        <div class="math-row"><span>Daily deficit (goal by Aug 14)</span><span class="val" style="color:#ef4444;">−750 kcal</span></div>
+        <div class="math-row total"><span>Weekday Target</span><span class="val pink">1,700 kcal</span></div>
+        <div class="math-row" style="font-size:0.7rem;"><span>Expected loss</span><span class="val green">~1.5 lbs/week → 155 lbs by Aug 14 ✓</span></div>
+        <div class="math-row" style="font-size:0.7rem;"><span>Aug 14–28: switch to maintenance</span><span class="val green">~2,400 kcal</span></div>
+      </div>
+      <div class="macro-strip">
+        <div class="macro-cell">
+          <div class="macro-val" style="color:#f9a8d4;">1,700</div>
+          <div class="macro-lbl">Calories</div>
+          <div class="macro-sub">strict days</div>
+        </div>
+        <div class="macro-cell">
+          <div class="macro-val" style="color:#93c5fd;">155g</div>
+          <div class="macro-lbl">Protein</div>
+          <div class="macro-sub">1g per goal lb</div>
+        </div>
+        <div class="macro-cell">
+          <div class="macro-val" style="color:#fcd34d;">170g</div>
+          <div class="macro-lbl">Carbs</div>
+          <div class="macro-sub">fuel & performance</div>
+        </div>
+        <div class="macro-cell">
+          <div class="macro-val" style="color:#f9a8d4;">55g</div>
+          <div class="macro-lbl">Fat</div>
+          <div class="macro-sub">hormones & health</div>
+        </div>
+      </div>
+      <div style="font-size:0.65rem;color:#555;text-align:center;margin-top:6px;">Weekend flex: up to 2,000 kcal (free meal replaces dinner)</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SECTION 3 — MEAL PLANS + PORTIONS         -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-header" style="margin-top:48px;">
+    <span class="section-icon">🍽️</span>
+    <span class="section-title">Meal Plans with Exact Portions</span>
+    <span class="section-tag">Label-Accurate Macros</span>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">🏋️ Purple = Mayowa's portion &nbsp;|&nbsp; 👑 Pink = Vanessa's portion</div>
+    Where portions are the same for both, one amount is shown. Macro values below each item are per that portion.
+  </div>
+
+  <!-- MEAL 1 — BREAKFAST -->
+  <div class="meal-card">
+    <div class="meal-card-header">
+      <span class="meal-icon-lg">🌅</span>
+      <div>
+        <div class="meal-name-lg">Breakfast — Overnight Oats with Raspberry Puree</div>
+        <div style="font-size:0.65rem;color:#888;">Prep night before · refrigerate overnight</div>
+      </div>
+    </div>
+    <ul class="ingredients-list">
+      <li>
+        <span class="ing-amount">1 scoop (30g)</span>
+        <span class="ing-name">Raw Isolate Protein Powder <span style="font-size:0.65rem;color:#555;">(in the oats)</span></span>
+        <span class="ing-macros">~115 kcal · 25g P · 2g C · 1g F</span>
+      </li>
+      <li>
+        <span class="ing-amount"><span class="ing-amount m" style="min-width:0;color:#a855f7;">60g</span> / <span style="color:#ec4899;">45g</span></span>
+        <span class="ing-name">Old Fashioned Oats <span style="font-size:0.65rem;color:#555;">(dry, measured before soaking)</span></span>
+        <span class="ing-macros">228/171 kcal · 7.8/5.7g P · 40/30g C · 4/3g F</span>
+      </li>
+      <li>
+        <span class="ing-amount">1 tbsp (12g)</span>
+        <span class="ing-name">Chia Seeds</span>
+        <span class="ing-macros">58 kcal · 2g P · 5g C · 4g F</span>
+      </li>
+      <li>
+        <span class="ing-amount"><span style="color:#a855f7;">16g</span> / <span style="color:#ec4899;">12g</span></span>
+        <span class="ing-name">Crunchy Peanut Butter <span style="font-size:0.65rem;color:#555;">(real PB, not powder — measure by weight)</span></span>
+        <span class="ing-macros">95/71 kcal · 4/3g P · 3/2g C · 8/6g F</span>
+      </li>
+      <li>
+        <span class="ing-amount">120ml (½ cup)</span>
+        <span class="ing-name">Unsweetened Almond Milk</span>
+        <span class="ing-macros">15 kcal · 0.5g P · 1.5g C · 1.5g F</span>
+      </li>
+      <li>
+        <span class="ing-amount">80g (~½ cup)</span>
+        <span class="ing-name">Fresh Raspberries → blended into puree <span style="font-size:0.65rem;color:#555;">(from Sam's 12oz bag)</span></span>
+        <span class="ing-macros">42 kcal · 1g P · 9.5g C · 0.5g F</span>
+      </li>
+      <li style="background:#1e1e2e;border-radius:6px;padding:6px 8px;">
+        <span class="ing-amount" style="color:#a855f7;">+ 1 banana</span>
+        <span class="ing-name" style="color:#94a3b8;"><strong>Mayowa only</strong> — 1 medium banana (~118g) sliced on top</span>
+        <span class="ing-macros">105 kcal · 1.3g P · 27g C · 0.4g F</span>
+      </li>
+    </ul>
+    <div class="meal-total-row">
+      <span class="tag tag-purple">🏋️ 663 kcal · 41g P · 88g C · 19.4g F</span>
+      <span class="tag tag-pink">👑 496 kcal · 37.2g P · 50g C · 16g F</span>
+    </div>
+    <div class="meal-note">💡 Mix all dry ingredients in a mason jar. Add almond milk and stir. Top with raspberry puree, then sliced banana (Mayowa). Cover and refrigerate overnight. Eat cold straight from the jar — no cooking needed.</div>
+  </div>
+
+  <!-- MEAL 2 — LUNCH -->
+  <div class="meal-card">
+    <div class="meal-card-header">
+      <span class="meal-icon-lg">🍔</span>
+      <div>
+        <div class="meal-name-lg">Lunch — Homemade Patty Melt</div>
+        <div style="font-size:0.65rem;color:#888;">Prep in bulk Sunday · reheat for weekday lunches</div>
+      </div>
+    </div>
+    <ul class="ingredients-list">
+      <li>
+        <span class="ing-amount"><span style="color:#a855f7;">7oz / 198g</span> / <span style="color:#ec4899;">5oz / 142g</span></span>
+        <span class="ing-name">Member's Mark 93/7 Ground Beef <span style="font-size:0.65rem;color:#555;">(raw weight — season and pan-cook as patty)</span></span>
+        <span class="ing-macros">333/238 kcal · 45/33g P · 0g C · 15/11g F</span>
+      </li>
+      <li>
+        <span class="ing-amount">2 slices (56g)</span>
+        <span class="ing-name">Potato Bread <span style="font-size:0.65rem;color:#555;">(from Sam's Club — toast lightly)</span></span>
+        <span class="ing-macros">~150 kcal · 4g P · 28g C · 2g F</span>
+      </li>
+      <li>
+        <span class="ing-amount">1 slice (28g)</span>
+        <span class="ing-name">Provolone Cheese</span>
+        <span class="ing-macros">100 kcal · 7g P · 0.5g C · 8g F</span>
+      </li>
+      <li>
+        <span class="ing-amount"><span style="color:#a855f7;">2 tbsp</span> / <span style="color:#ec4899;">1 tbsp</span></span>
+        <span class="ing-name">Kinder's Hickory Brown Sugar BBQ Sauce <span style="font-size:0.65rem;color:#555;">(note: has sugar — counts in carbs)</span></span>
+        <span class="ing-macros">70/35 kcal · 0g P · 16/8g C · 0g F</span>
+      </li>
+      <li>
+        <span class="ing-amount">As desired</span>
+        <span class="ing-name">Red Onion <span style="font-size:0.65rem;color:#555;">(from Sam's — sautéed, minimal calories)</span></span>
+        <span class="ing-macros">~20 kcal · 0g P · 4g C · 0g F</span>
+      </li>
+    </ul>
+    <div class="meal-total-row">
+      <span class="tag tag-purple">🏋️ 673 kcal · 56g P · 48.5g C · 25g F</span>
+      <span class="tag tag-pink">👑 543 kcal · 44g P · 40.5g C · 21g F</span>
+    </div>
+    <div class="meal-note">💡 Cook 5-7 days of patties in batches on Sunday. Season beef simply: salt, garlic powder, black pepper. Pan sear 3-4 min each side. Refrigerate. Toast bread and assemble fresh each day. Takes under 5 min to put together.</div>
+  </div>
+
+  <!-- MEAL 3 — SNACK -->
+  <div class="meal-card">
+    <div class="meal-card-header">
+      <span class="meal-icon-lg">🥛</span>
+      <div>
+        <div class="meal-name-lg">Snack — Chobani 30g Protein Yogurt Drink</div>
+        <div style="font-size:0.65rem;color:#888;">Same for both · no prep · grab and go</div>
+      </div>
+    </div>
+    <ul class="ingredients-list">
+      <li>
+        <span class="ing-amount">1 bottle (14oz)</span>
+        <span class="ing-name">Chobani Complete 30g Protein Drink — Vanilla Ice Cream</span>
+        <span class="ing-macros">~270 kcal · 30g P · 22g C · 5g F</span>
+      </li>
+    </ul>
+    <div class="meal-total-row">
+      <span class="tag tag-purple">🏋️ 270 kcal · 30g P · 22g C · 5g F</span>
+      <span class="tag tag-pink">👑 270 kcal · 30g P · 22g C · 5g F</span>
+    </div>
+    <div class="meal-note">💡 Keep in the fridge at work or school. Drink between lunch and dinner, ideally 2-3 hours after lunch. This snack alone gives you 30g of protein without any prep.</div>
+  </div>
+
+  <!-- MEAL 4 — DINNER -->
+  <div class="meal-card">
+    <div class="meal-card-header">
+      <span class="meal-icon-lg">🍣</span>
+      <div>
+        <div class="meal-name-lg">Dinner — Salmon + Quinoa + Mushroom Veggie Sauce</div>
+        <div style="font-size:0.65rem;color:#888;">~30 min prep · cook quinoa in bulk for the week</div>
+      </div>
+    </div>
+    <ul class="ingredients-list">
+      <li>
+        <span class="ing-amount"><span style="color:#a855f7;">6oz / 170g</span> / <span style="color:#ec4899;">5oz / 142g</span></span>
+        <span class="ing-name">Member's Mark Wild-Caught Alaskan Salmon <span style="font-size:0.65rem;color:#555;">(thawed from frozen · bake or pan-sear)</span></span>
+        <span class="ing-macros">310/259 kcal · 36/30g P · 2g C · 18/15g F</span>
+      </li>
+      <li>
+        <span class="ing-amount"><span style="color:#a855f7;">150g cooked</span> / <span style="color:#ec4899;">100g cooked</span></span>
+        <span class="ing-name">Quinoa <span style="font-size:0.65rem;color:#555;">(measure after cooking · cook in bulk for the week)</span></span>
+        <span class="ing-macros">183/122 kcal · 7/4.5g P · 33/22g C · 3/2g F</span>
+      </li>
+      <li>
+        <span class="ing-amount">100g</span>
+        <span class="ing-name">Organic Baby Bella Mushrooms <span style="font-size:0.65rem;color:#555;">(from Sam's · sautéed in spray oil)</span></span>
+        <span class="ing-macros">22 kcal · 3g P · 4g C · 0g F</span>
+      </li>
+      <li>
+        <span class="ing-amount">60g</span>
+        <span class="ing-name">Red Onion <span style="font-size:0.65rem;color:#555;">(from Sam's · diced and sautéed with mushrooms)</span></span>
+        <span class="ing-macros">24 kcal · 0.5g P · 5.5g C · 0g F</span>
+      </li>
+      <li>
+        <span class="ing-amount">60g</span>
+        <span class="ing-name">Sweet Bell Pepper <span style="font-size:0.65rem;color:#555;">(from Sam's multi-pack · diced)</span></span>
+        <span class="ing-macros">19 kcal · 0.6g P · 4.5g C · 0.1g F</span>
+      </li>
+      <li>
+        <span class="ing-amount">spray</span>
+        <span class="ing-name">0-calorie Spray Oil <span style="font-size:0.65rem;color:#555;">(for cooking mushrooms · 5 sprays max)</span></span>
+        <span class="ing-macros">~10 kcal · 0g P · 0g C · 1g F</span>
+      </li>
+    </ul>
+    <div class="meal-total-row">
+      <span class="tag tag-purple">🏋️ 568 kcal · 47g P · 49g C · 22g F</span>
+      <span class="tag tag-pink">👑 462 kcal · 39g P · 39g C · 18g F</span>
+    </div>
+    <div class="meal-note">
+      💡 <strong>Quinoa (Grubanny method — youtube.com/watch?v=FDGt5ElvIPc):</strong> Add quinoa to a bowl, pour cold water in and rub vigorously between your palms until the water goes cloudy — this removes bitterness. Strain through a fine mesh strainer. Add to pot with 1.5 cups water per 2 cups quinoa + a pinch of salt. Cover and boil exactly 3 min, then reduce to a simmer for 12 min. Fluff with a fork. Result: perfectly fluffy, zero clumps. Cook a full batch Sunday and portion into containers — <strong>150g cooked for Mayowa · 100g cooked for Vanessa.</strong><br><br>
+      💡 <strong>Salmon:</strong> Preheat oven to 400°F. Season with garlic powder, paprika, salt. Bake 12–15 min until it flakes easily.<br><br>
+      💡 <strong>Mushroom sauce:</strong> Sauté baby bella + red onion + bell pepper in spray oil over medium heat until soft, ~8 min. Season with garlic powder and black pepper. Spoon over salmon and quinoa.
+    </div>
+  </div>
+
+  <!-- MEAL 5 — DESSERT -->
+  <div class="meal-card" style="border-color:#f59e0b44;">
+    <div class="meal-card-header">
+      <span class="meal-icon-lg">🍫</span>
+      <div>
+        <div class="meal-name-lg">Dessert — Paleo Choc Zucchini Bread + Halo Top</div>
+        <div><span class="tag tag-yellow">EARNED ONLY · Strict day compliant = you get this</span></div>
+      </div>
+    </div>
+    <ul class="ingredients-list">
+      <li>
+        <span class="ing-amount">1 slice</span>
+        <span class="ing-name">Paleo Chocolate Zucchini Bread <span style="font-size:0.65rem;color:#555;">(homemade recipe · 10-12 slices per loaf · freeze extra)</span></span>
+        <span class="ing-macros">231 kcal · 6g P · 27g C · 12g F</span>
+      </li>
+      <li>
+        <span class="ing-amount">1 scoop (~80g)</span>
+        <span class="ing-name">Halo Top Ice Cream</span>
+        <span class="ing-macros">~65 kcal · 4g P · 9g C · 2g F</span>
+      </li>
+    </ul>
+    <div class="meal-total-row">
+      <span class="tag tag-yellow">Both: ~296 kcal · 10g P · 36g C · 14g F</span>
+    </div>
+    <div class="meal-note">⚡ Rule: You EARN this by hitting all 4 meals on plan and completing your workout. Skip dessert on any day you skip a meal or a workout. Bake the loaf on Sundays together — slice, wrap individually, freeze. Thaw one slice per earned night.</div>
+  </div>
+
+  <!-- ─── DAILY TOTALS ─── -->
+  <div style="margin-top:20px;">
+    <div class="section-header" style="margin-top:0;">
+      <span class="section-icon">📊</span>
+      <span class="section-title">Daily Totals Summary</span>
+    </div>
+
+    <div class="two-col">
+      <!-- MAYOWA -->
+      <div class="daily-total-box">
+        <div class="daily-total-title">🏋️ Mayowa — Full Day Breakdown</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:#94a3b8;padding:4px 0;border-bottom:1px solid #1e1e2e;">
+            <span>🌅 Breakfast</span>
+            <span>663 kcal · 41g P · 88g C · 19.4g F</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:#94a3b8;padding:4px 0;border-bottom:1px solid #1e1e2e;">
+            <span>🍔 Lunch</span>
+            <span>673 kcal · 56g P · 48.5g C · 25g F</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:#94a3b8;padding:4px 0;border-bottom:1px solid #1e1e2e;">
+            <span>🥛 Snack</span>
+            <span>270 kcal · 30g P · 22g C · 5g F</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:#94a3b8;padding:4px 0;border-bottom:1px solid #1e1e2e;">
+            <span>🍣 Dinner</span>
+            <span>568 kcal · 47g P · 49g C · 22g F</span>
+          </div>
+        </div>
+        <div class="strict-flex-row">
+          <div class="mode-box mode-strict">
+            <div class="mode-label">⚡ Strict (no dessert)</div>
+            <div class="mode-kcal" style="color:#c4b5fd;">2,174 kcal</div>
+            <div class="mode-breakdown">174g P · 207g C · 71g F</div>
+            <div style="font-size:0.55rem;color:#22c55e;margin-top:3px;">~800 cal deficit ✓</div>
+          </div>
+          <div class="mode-box mode-flex">
+            <div class="mode-label">🌟 Sat–Sun Flex (+ dessert)</div>
+            <div class="mode-kcal" style="color:#fcd34d;">2,470 kcal</div>
+            <div class="mode-breakdown">184g P · 243g C · 85g F</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VANESSA -->
+      <div class="daily-total-box">
+        <div class="daily-total-title">👑 Vanessa — Full Day Breakdown</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:#94a3b8;padding:4px 0;border-bottom:1px solid #1e1e2e;">
+            <span>🌅 Breakfast</span>
+            <span>496 kcal · 37g P · 50g C · 16g F</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:#94a3b8;padding:4px 0;border-bottom:1px solid #1e1e2e;">
+            <span>🍔 Lunch</span>
+            <span>543 kcal · 44g P · 40.5g C · 21g F</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:#94a3b8;padding:4px 0;border-bottom:1px solid #1e1e2e;">
+            <span>🥛 Snack</span>
+            <span>270 kcal · 30g P · 22g C · 5g F</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:#94a3b8;padding:4px 0;border-bottom:1px solid #1e1e2e;">
+            <span>🍣 Dinner</span>
+            <span>462 kcal · 39g P · 39g C · 18g F</span>
+          </div>
+        </div>
+        <div class="strict-flex-row">
+          <div class="mode-box mode-strict">
+            <div class="mode-label">⚡ Strict (no dessert)</div>
+            <div class="mode-kcal" style="color:#f9a8d4;">1,700 kcal</div>
+            <div class="mode-breakdown">145g P · 145g C · 58g F</div>
+            <div style="font-size:0.55rem;color:#22c55e;margin-top:3px;">~750 cal deficit ✓</div>
+          </div>
+          <div class="mode-box mode-flex">
+            <div class="mode-label">🌟 Sat–Sun Flex (+ dessert)</div>
+            <div class="mode-kcal" style="color:#fcd34d;">1,996 kcal</div>
+            <div class="mode-breakdown">155g P · 181g C · 72g F</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SECTION 4 — WEEKLY WORKOUT SCHEDULE       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-header" style="margin-top:48px;">
+    <span class="section-icon">💪</span>
+    <span class="section-title">Weekly Workout Schedule</span>
+    <span class="section-tag">Both Personalized</span>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">📍 Key Context</div>
+    Vanessa leaves Atlanta Monday evenings for CRNA rotations. Sunday and Monday they train together in ATL. Tuesday–Friday she trains solo at school. Saturday they walk together in ATL.
+  </div>
+
+  <div style="overflow-x:auto;margin-bottom:20px;">
+    <table class="week-table">
+      <thead>
+        <tr>
+          <th style="width:90px;">Day</th>
+          <th>🏋️ Mayowa</th>
+          <th>👑 Vanessa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- SUNDAY -->
+        <tr>
+          <td>
+            <div class="day-label">SUNDAY</div>
+            <span class="workout-type wt-together">Together</span>
+          </td>
+          <td>
+            <span class="workout-type wt-gym">Legs</span>
+            <span class="workout-type wt-cardio" style="margin-left:4px;">Cardio</span>
+            <div class="exercise-list">
+              Smith Machine Squat <span>4×10-12</span><br>
+              Leg Press <span>4×12-15</span><br>
+              Romanian Deadlift <span>3×10</span><br>
+              Dumbbell Goblet Squat <span>3×12</span><br>
+              Leg Curl <span>3×12</span><br>
+              <strong>Cardio:</strong> 20 min · Incline 12 · Speed 3.0
+            </div>
+          </td>
+          <td>
+            <span class="workout-type wt-gym">Legs</span>
+            <span class="workout-type wt-cardio" style="margin-left:4px;">Cardio</span>
+            <div class="exercise-list">
+              Smith Machine Squat <span>4×12-15</span><br>
+              Leg Press <span>4×15</span><br>
+              Romanian Deadlift <span>3×12</span><br>
+              Hip Thrust <span>4×15</span><br>
+              Glute Kickbacks <span>3×20 each</span><br>
+              <strong>Cardio:</strong> 20 min · Incline 10 · Speed 3.0
+            </div>
+          </td>
+        </tr>
+        <!-- MONDAY -->
+        <tr>
+          <td>
+            <div class="day-label">MONDAY</div>
+            <span class="workout-type wt-together">Together</span>
+            <div style="font-size:0.55rem;color:#f59e0b;margin-top:3px;">V leaves evening</div>
+          </td>
+          <td>
+            <span class="workout-type wt-gym">Chest</span>
+            <span class="workout-type wt-cardio" style="margin-left:4px;">Cardio</span>
+            <div class="exercise-list">
+              Barbell Bench Press <span>4×8-10</span><br>
+              Incline DB Press <span>4×10-12</span><br>
+              Cable Fly / Pec Deck <span>3×12-15</span><br>
+              Push-Ups to failure <span>2 sets</span><br>
+              <strong>Cardio:</strong> 20 min · Incline 12 · Speed 3.0
+            </div>
+          </td>
+          <td>
+            <span class="workout-type wt-gym">Upper Body + Core</span>
+            <div class="exercise-list">
+              DB Shoulder Press <span>3×12</span><br>
+              DB Row <span>3×12 each</span><br>
+              DB Chest Press <span>3×12</span><br>
+              Bicep Curls <span>3×15</span><br>
+              Tricep Kickbacks <span>3×15</span><br>
+              Plank <span>3×45 sec</span><br>
+              Russian Twists <span>3×20</span>
+            </div>
+          </td>
+        </tr>
+        <!-- TUESDAY -->
+        <tr>
+          <td>
+            <div class="day-label">TUESDAY</div>
+            <div style="font-size:0.55rem;color:#60a5fa;margin-top:3px;">V at school</div>
+          </td>
+          <td>
+            <span class="workout-type wt-gym">Back</span>
+            <span class="workout-type wt-cardio" style="margin-left:4px;">Cardio</span>
+            <div class="exercise-list">
+              Pull-Ups / Lat Pulldown <span>4×8-12</span><br>
+              Bent-Over Row <span>4×10</span><br>
+              Seated Cable Row <span>3×12</span><br>
+              Face Pull <span>3×15</span><br>
+              <strong>Cardio:</strong> 20 min · Incline 12 · Speed 3.0
+            </div>
+          </td>
+          <td>
+            <span class="workout-type wt-plan">Lower Body — Glutes & Hams</span>
+            <span class="workout-type wt-cardio" style="margin-left:4px;margin-top:4px;">Cardio</span>
+            <div class="exercise-list">
+              Barbell Hip Thrust <span>4×15</span><br>
+              Romanian Deadlift <span>4×12</span><br>
+              Sumo Squat (DB) <span>3×15</span><br>
+              Lying Leg Curl <span>3×15</span><br>
+              Glute Kickbacks <span>3×20 each</span><br>
+              <strong>Cardio:</strong> 20 min · Incline 10 · Speed 3.0
+            </div>
+          </td>
+        </tr>
+        <!-- WEDNESDAY -->
+        <tr>
+          <td>
+            <div class="day-label">WEDNESDAY</div>
+            <div style="font-size:0.55rem;color:#60a5fa;margin-top:3px;">V at school</div>
+          </td>
+          <td>
+            <span class="workout-type wt-gym">Shoulders + Arms</span>
+            <span class="workout-type wt-cardio" style="margin-left:4px;">Cardio</span>
+            <div class="exercise-list">
+              Overhead DB Press <span>4×10-12</span><br>
+              Lateral Raises <span>3×15</span><br>
+              Bicep Curls (DB) <span>3×12</span><br>
+              Hammer Curls <span>3×12</span><br>
+              Tricep Pushdown <span>3×12</span><br>
+              Skull Crushers <span>3×10</span><br>
+              <strong>Cardio:</strong> 20 min · Incline 12 · Speed 3.0
+            </div>
+          </td>
+          <td>
+            <span class="workout-type wt-plan">Arms + Core</span>
+            <span class="workout-type wt-cardio" style="margin-left:4px;">Cardio</span>
+            <div class="exercise-list">
+              Bicep Curls <span>4×15</span><br>
+              Hammer Curls <span>3×15</span><br>
+              Tricep Pushdown <span>4×15</span><br>
+              Overhead Tricep Ext. <span>3×12</span><br>
+              Plank <span>3×60 sec</span><br>
+              Leg Raises <span>3×15</span><br>
+              Russian Twists <span>3×20</span><br>
+              <strong>Cardio:</strong> 20 min · Incline 10 · Speed 3.0
+            </div>
+          </td>
+        </tr>
+        <!-- THURSDAY -->
+        <tr>
+          <td>
+            <div class="day-label">THURSDAY</div>
+            <div style="font-size:0.55rem;color:#60a5fa;margin-top:3px;">V at school</div>
+          </td>
+          <td>
+            <span class="workout-type wt-walk">🚶 Walk</span>
+            <div class="exercise-list">1 hour outdoor walk after work · aim for 10k steps total</div>
+          </td>
+          <td>
+            <span class="workout-type wt-plan">Lower Body — Quads & Glutes</span>
+            <span class="workout-type wt-cardio" style="margin-left:4px;">Cardio</span>
+            <div class="exercise-list">
+              Smith Machine / Barbell Squat <span>4×12</span><br>
+              Leg Press <span>4×15</span><br>
+              Walking Lunges <span>3×20 steps</span><br>
+              Leg Extension <span>3×15</span><br>
+              Calf Raises <span>3×20</span><br>
+              <strong>Cardio:</strong> 20 min · Incline 10 · Speed 3.0
+            </div>
+          </td>
+        </tr>
+        <!-- FRIDAY -->
+        <tr>
+          <td>
+            <div class="day-label">FRIDAY</div>
+            <div style="font-size:0.55rem;color:#60a5fa;margin-top:3px;">V at school</div>
+          </td>
+          <td>
+            <span class="workout-type wt-walk">🚶 Walk</span>
+            <div class="exercise-list">1 hour outdoor walk after work · aim for 10k steps total</div>
+          </td>
+          <td>
+            <span class="workout-type wt-rest">Rest / Light Walk</span>
+            <div class="exercise-list">Active recovery · 20-30 min easy walk if energy allows · stretch</div>
+          </td>
+        </tr>
+        <!-- SATURDAY -->
+        <tr>
+          <td>
+            <div class="day-label">SATURDAY</div>
+            <span class="workout-type wt-together">Together</span>
+          </td>
+          <td>
+            <span class="workout-type wt-walk">🚶 Walk Together</span>
+            <div class="exercise-list">1 hour walk together · aim for 10k steps · can add light stretching</div>
+          </td>
+          <td>
+            <span class="workout-type wt-walk">🚶 Walk Together</span>
+            <div class="exercise-list">1 hour walk with Mayowa · 10k steps goal · reconnect and recharge</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Workout totals -->
+  <div class="two-col">
+    <div style="background:#1a1a2e;border-radius:14px;padding:16px;border:1px solid #2a2a3e;">
+      <div style="font-size:0.65rem;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">🏋️ Mayowa — Weekly Volume</div>
+      <div style="font-size:0.78rem;color:#94a3b8;line-height:1.8;">
+        <span class="tag tag-purple" style="margin-bottom:4px;display:inline-block;">4 gym sessions</span>
+        <span class="tag tag-green" style="margin-left:6px;margin-bottom:4px;display:inline-block;">4 cardio sessions</span>
+        <span class="tag tag-blue" style="margin-left:6px;margin-bottom:4px;display:inline-block;">3 walks</span><br>
+        Sun: Legs · Mon: Chest · Tue: Back · Wed: Shoulders/Arms<br>
+        Thu/Fri: 1hr walk · Sat: walk with Vanessa
+      </div>
+    </div>
+    <div style="background:#1a1a2e;border-radius:14px;padding:16px;border:1px solid #2a2a3e;">
+      <div style="font-size:0.65rem;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">👑 Vanessa — Weekly Volume</div>
+      <div style="font-size:0.78rem;color:#94a3b8;line-height:1.8;">
+        <span class="tag tag-pink" style="margin-bottom:4px;display:inline-block;">5 gym sessions</span>
+        <span class="tag tag-green" style="margin-left:6px;margin-bottom:4px;display:inline-block;">4 cardio sessions</span>
+        <span class="tag tag-blue" style="margin-left:6px;margin-bottom:4px;display:inline-block;">2 walks</span><br>
+        Sun: Legs · Mon: Upper Body · Tue: Glutes/Hams<br>
+        Wed: Arms/Core · Thu: Quads/Glutes · Fri: Rest · Sat: walk
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SECTION 5 — SUPPLEMENT STACK              -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-header" style="margin-top:48px;">
+    <span class="section-icon">💊</span>
+    <span class="section-title">Supplement Protocol</span>
+    <span class="section-tag">Both Take Daily</span>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">⏰ Timing Rule</div>
+    Take all supplements with Meal 1 (breakfast). Exception: Creatine can be taken any time — before or after your workout is optimal. Raw Isolate goes in the oatmeal, not as a separate shake.
+  </div>
+
+  <div class="supp-grid">
+    <div class="supp-card">
+      <div class="supp-icon">🐟</div>
+      <div>
+        <div class="supp-name">Fish Oil</div>
+        <div class="supp-dose">3,000mg (EPA+DHA)</div>
+        <div class="supp-timing">With Meal 1 · reduces inflammation</div>
+      </div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-icon">⚡</div>
+      <div>
+        <div class="supp-name">Creatine Monohydrate</div>
+        <div class="supp-dose">5g daily</div>
+        <div class="supp-timing">Pre or post workout · supports strength & muscle retention during cut</div>
+      </div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-icon">☀️</div>
+      <div>
+        <div class="supp-name">Vitamin D3</div>
+        <div class="supp-dose">50,000 IU</div>
+        <div class="supp-timing">With Meal 1 · fat-soluble vitamin · take with a meal</div>
+      </div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-icon">🦴</div>
+      <div>
+        <div class="supp-name">Vitamin K2</div>
+        <div class="supp-dose">100mcg</div>
+        <div class="supp-timing">With D3 · helps direct calcium to bones, not arteries</div>
+      </div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-icon">🥬</div>
+      <div>
+        <div class="supp-name">Greens Powder</div>
+        <div class="supp-dose">1 serving</div>
+        <div class="supp-timing">With Meal 1 or mixed in water · micronutrient coverage</div>
+      </div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-icon">🛡️</div>
+      <div>
+        <div class="supp-name">Zinc</div>
+        <div class="supp-dose">50mg</div>
+        <div class="supp-timing">With Meal 1 · immune function · testosterone support</div>
+      </div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-icon">🌙</div>
+      <div>
+        <div class="supp-name">Magnesium</div>
+        <div class="supp-dose">400mg</div>
+        <div class="supp-timing">With Meal 1 or before bed · sleep quality · muscle recovery</div>
+      </div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-icon">💯</div>
+      <div>
+        <div class="supp-name">Multivitamin</div>
+        <div class="supp-dose">1 tablet</div>
+        <div class="supp-timing">With Meal 1 · insurance for micronutrient gaps</div>
+      </div>
+    </div>
+    <div class="supp-card" style="border-color:#a855f7;grid-column:span 2;">
+      <div class="supp-icon">🥛</div>
+      <div>
+        <div class="supp-name">Raw Isolate Protein Powder</div>
+        <div class="supp-dose">1 scoop (30g) — mixed into overnight oats, not a separate shake</div>
+        <div class="supp-timing">Breakfast only · ~25g protein per scoop · stir into oat mix before refrigerating</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SECTION 6 — STRICT vs. FLEX RULES         -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-header" style="margin-top:48px;">
+    <span class="section-icon">⚖️</span>
+    <span class="section-title">Strict vs. Flex Guide</span>
+    <span class="section-tag">Mon–Fri Strict · Sat–Sun Flex</span>
+  </div>
+
+  <div class="mode-guide">
+    <div class="mode-guide-card strict">
+      <div class="mode-guide-title">⚡ Strict Days (Mon–Fri)</div>
+      <div class="mode-guide-list">
+        <div class="mode-guide-item"><span class="dot">●</span>Hit all 4 meals exactly as planned — weigh your portions</div>
+        <div class="mode-guide-item"><span class="dot">●</span>No dessert unless you executed every meal AND completed your workout</div>
+        <div class="mode-guide-item"><span class="dot">●</span>Hit your step goal (10k for Vanessa · 10k for Mayowa)</div>
+        <div class="mode-guide-item"><span class="dot">●</span>Take all supplements without skipping</div>
+        <div class="mode-guide-item"><span class="dot">●</span>Log your weight every morning (fasted, after bathroom)</div>
+        <div class="mode-guide-item"><span class="dot">●</span>Swap ingredients using the substitution guide — stay in same macro range</div>
+        <div class="mode-guide-item"><span class="dot">●</span>Water: aim for 1 gallon (Mayowa) / 3 liters (Vanessa)</div>
+      </div>
+    </div>
+    <div class="mode-guide-card flex">
+      <div class="mode-guide-title">🌟 Flex Days (Sat–Sun)</div>
+      <div class="mode-guide-list">
+        <div class="mode-guide-item"><span class="dot">●</span>Still hit breakfast, lunch, and snack on plan</div>
+        <div class="mode-guide-item"><span class="dot">●</span>Dinner can be a free meal — keep it under ~700 kcal</div>
+        <div class="mode-guide-item"><span class="dot">●</span>Still do your workout (leg day Sunday is non-negotiable)</div>
+        <div class="mode-guide-item"><span class="dot">●</span>Plantains are a great flex carb — bake or air-fry instead of frying</div>
+        <div class="mode-guide-item"><span class="dot">●</span>If you go over — don't spiral. Just get back on Monday</div>
+        <div class="mode-guide-item"><span class="dot">●</span>Zucchini bread + Halo Top is your go-to flex dessert — have it guilt-free</div>
+        <div class="mode-guide-item"><span class="dot">●</span>One flex meal is NOT a cheat day — keep it clean overall</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Substitution guide note -->
+  <div class="callout">
+    <div class="callout-title">🔄 Food Substitutions (Same-Box Rule)</div>
+    You can swap <strong>proteins</strong> for proteins (e.g. salmon → chicken, ground beef → ground turkey 93%), <strong>carbs</strong> for carbs (quinoa → rice → plantain), and <strong>fats</strong> for fats (PB → almond butter → avocado). Always pick from the same macro category and keep portions weight-equivalent. Never swap a fat for a carb or vice versa — it'll throw your macros off.
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  FOOTER                                    -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="divider"></div>
+  <div style="text-align:center;padding:20px 0;">
+    <div style="font-size:1.5rem;margin-bottom:8px;">💍</div>
+    <div style="font-size:0.9rem;color:#22c55e;font-weight:700;">🎯 Goal: August 14, 2026 · Wedding: August 28, 2026</div>
+    <div style="font-size:0.7rem;color:#555;margin-top:4px;">Plan drafted April 19, 2026 · Review and adjust every 4 weeks · After Aug 14 switch to maintenance</div>
+  </div>
+
+</div>
+</body>
+</html>
