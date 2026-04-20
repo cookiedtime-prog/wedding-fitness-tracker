@@ -199,8 +199,10 @@ canvas{position:absolute;top:0;left:0;width:100%!important;height:100%!important
         <div class="hdr-title">💍 Wedding Fitness Tracker<span class="sync-dot" id="sync-dot" title="Sync status"></span></div>
         <div class="hdr-sub">Mayowa & Vanessa · August 28, 2026</div>
       </div>
-      <div style="font-size:0.6rem;color:rgba(255,255,255,0.6);text-align:right">
-        <div id="today-date"></div>
+      <div style="font-size:0.6rem;color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:6px">
+        <button onclick="prevDay()" style="background:rgba(255,255,255,0.1);border:none;border-radius:4px;color:white;width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer">◀</button>
+        <div id="today-date" style="min-width:65px;text-align:center;font-weight:600"></div>
+        <button onclick="nextDay()" id="next-day-btn" style="background:rgba(255,255,255,0.1);border:none;border-radius:4px;color:white;width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer">▶</button>
       </div>
     </div>
     <div class="cd-row" id="countdown"></div>
@@ -376,6 +378,7 @@ const SUPPS = ['Fish Oil 3,000mg','Creatine 5g','Vitamin D3 50,000 IU','K2 100mc
 // ════════════════════════════════════════════
 let cur = 'mayowa';
 let tab = 'today';
+let activeDate = new Date();
 
 // ════════════════════════════════════════════
 // STORAGE
@@ -386,8 +389,33 @@ function store() {
 }
 function save(d) { try { localStorage.setItem('wf26', JSON.stringify(d)); } catch(e){} }
 function todayKey() {
+  const d = activeDate;
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function realTodayKey() {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function prevDay() { activeDate.setDate(activeDate.getDate() - 1); updateDateDisplay(); render(); }
+function nextDay() {
+  if (todayKey() !== realTodayKey()) {
+    activeDate.setDate(activeDate.getDate() + 1);
+    updateDateDisplay();
+    render();
+  }
+}
+function updateDateDisplay() {
+  const el = document.getElementById('today-date');
+  if (el) {
+    const isToday = todayKey() === realTodayKey();
+    el.textContent = isToday ? 'Today' : activeDate.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  }
+  const nextBtn = document.getElementById('next-day-btn');
+  if (nextBtn) {
+    const isToday = todayKey() === realTodayKey();
+    nextBtn.style.opacity = isToday ? '0.3' : '1';
+    nextBtn.style.pointerEvents = isToday ? 'none' : 'auto';
+  }
 }
 function getLog(profile, key) {
   const s = store();
@@ -406,8 +434,7 @@ function saveLog(profile, key, log) {
 // ════════════════════════════════════════════
 function updateCountdown() {
   const now = new Date();
-  const d = new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-  document.getElementById('today-date').textContent = d;
+  updateDateDisplay();
 
   const toGoal = GOAL_DATE - now;
   const toWedding = WEDDING_DATE - now;
@@ -507,7 +534,7 @@ function renderToday(el) {
     ${p.meals.map(m => {
       const done = !!log.meals[m.key];
       const locked = m.earned && !allDone;
-      const isWeekend = new Date().getDay() === 0 || new Date().getDay() === 6;
+      const isWeekend = activeDate.getDay() === 0 || activeDate.getDay() === 6;
       if (isWeekend && m.key === 'dinner') {
         const val = typeof log.meals.dinner === 'string' ? log.meals.dinner : '';
         const isDone = val.length > 0 || log.meals.dinner === true;
@@ -600,7 +627,7 @@ function renderWorkoutBox(wo, log) {
 }
 
 function getTodayWorkout() {
-  return PROFILES[cur].schedule[new Date().getDay()];
+  return PROFILES[cur].schedule[activeDate.getDay()];
 }
 
 // ════════════════════════════════════════════
