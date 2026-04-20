@@ -15,8 +15,8 @@
   --blue:#60a5fa;--blue-d:#1b2d4e;
   --text:#e2e8f0;--muted:#94a3b8;--dim:#4b5563;
 }
-html{font-size:32px}
-@media(min-width:768px){html{font-size:38px}}
+html{font-size:42px}
+@media(min-width:768px){html{font-size:52px}}
 html,body{height:100%;height:100dvh;overflow:hidden;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
 /* ─── LAYOUT ─── */
 #app{display:flex;flex-direction:column;height:100%;max-width:768px;margin:0 auto;position:relative}
@@ -68,9 +68,9 @@ html,body{height:100%;height:100dvh;overflow:hidden;background:var(--bg);color:v
 /* ─── MEAL CHECKLIST ─── */
 .meal-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;-webkit-user-select:none}
 .meal-item:last-child{border-bottom:none}
-.m-check{width:32px;height:32px;border-radius:50%;border:2px solid var(--dim);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.m-check{width:1.8rem;height:1.8rem;border-radius:50%;border:2px solid var(--dim);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .m-check.done{background:var(--purple);border-color:var(--purple)}
-.m-check svg{width:16px;height:16px}
+.m-check svg{width:0.9rem;height:0.9rem}
 .m-icon{font-size:1.1rem;flex-shrink:0}
 .m-info{flex:1;min-width:0}
 .m-name{font-size:0.78rem;font-weight:700}
@@ -117,7 +117,7 @@ html,body{height:100%;height:100dvh;overflow:hidden;background:var(--bg);color:v
 .wk-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
 .wk-cell{text-align:center}
 .wk-lbl{font-size:0.5rem;color:var(--dim);margin-bottom:3px}
-.wk-dot{width:42px;height:42px;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700;background:var(--border);color:var(--dim)}
+.wk-dot{width:2.2rem;height:2.2rem;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;background:var(--border);color:var(--dim)}
 .wk-dot.gym{background:var(--purple-deep);color:#c4b5fd}
 .wk-dot.walk{background:var(--green-d);color:#6ee7b7}
 .wk-dot.plan{background:var(--blue-d);color:var(--blue)}
@@ -131,7 +131,7 @@ html,body{height:100%;height:100dvh;overflow:hidden;background:var(--bg);color:v
 .stat-val{font-size:1.1rem;font-weight:900}
 .stat-lbl{font-size:0.5rem;color:var(--dim);margin-top:2px}
 /* ─── CHART ─── */
-.chart-wrap{position:relative;width:100%;height:10rem}
+.chart-wrap{position:relative;width:100%;height:8rem}
 canvas{position:absolute;top:0;left:0;width:100%!important;height:100%!important}
 /* ─── US TAB ─── */
 .us-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
