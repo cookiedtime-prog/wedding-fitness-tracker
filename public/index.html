@@ -366,6 +366,7 @@ const PROFILES = {
   }
 };
 
+const EXERCISE_LINKS = {"m_Lateral Raises": "https://www.youtube.com/shorts/Kl3LEzQ5Zqs", "m_Barbell Bench Press": "https://www.youtube.com/shorts/hWbUlkb5Ms4", "m_Incline DB Press": "https://www.youtube.com/shorts/8fXfwG4ftaQ", "m_Cable Fly": "https://www.youtube.com/shorts/I-Ue34qLxc4", "m_aim for 10k steps total": "https://www.youtube.com/shorts/ffF9IESyN0U", "m_Tricep Pushdown": "https://www.youtube.com/shorts/Rc7-euA8FDI", "m_Bicep Curls": "https://www.youtube.com/shorts/VCw_uIxW8WE", "m_Leg Curl": "https://www.youtube.com/shorts/_lgE0gPvbik", "m_Seated Cable Row": "https://www.youtube.com/shorts/qD1WZ5pSuvk", "m_Overhead DB Press": "https://www.youtube.com/shorts/k6tzKisR3NY", "m_Bent-Over Row": "https://www.youtube.com/shorts/IOOLhrkN_NI", "m_Leg Press": "https://www.youtube.com/shorts/nDh_BlnLCGc", "m_Pull-Ups / Lat Pulldown": "https://www.youtube.com/shorts/bNmvKpJSWKM", "m_10k steps goal": "https://www.youtube.com/shorts/ffF9IESyN0U", "m_Romanian Deadlift": "https://www.youtube.com/shorts/5rIqP63yWFg", "m_Smith Machine Squat": "https://www.youtube.com/shorts/PKBg7KUMgMU", "m_DB Goblet Squat": "https://www.youtube.com/shorts/lRYBbchqxtI", "m_Hammer Curls": "https://www.youtube.com/shorts/8H5oWMNWWeQ", "m_Push-Ups to failure 2 sets": "https://www.youtube.com/shorts/CAvLJgmMM88", "m_Face Pull": "https://www.youtube.com/shorts/IeOqdw9WI90", "m_Skull Crushers": "https://www.youtube.com/shorts/iuYB_fLp26Q", "v_DB Shoulder Press": "https://www.youtube.com/shorts/WrQqtezYNn8", "v_Glute Kickbacks": "https://www.youtube.com/shorts/n-cgsNePyFo", "v_Tricep Pushdown": "https://www.youtube.com/shorts/so2pibkVj40", "v_Bicep Curls": "https://www.youtube.com/shorts/09AYfVFf7pg", "v_Tricep Kickbacks": "https://www.youtube.com/shorts/w0oo0y_I2FM", "v_DB Row": "https://www.youtube.com/shorts/vN8xskk-7G8", "v_Lying Leg Curl": "https://www.youtube.com/shorts/yjWAuFOjhuY", "v_Overhead Tricep Ext": "https://www.youtube.com/shorts/xiXJxlGKryY", "v_Leg Raises": "https://www.youtube.com/shorts/kLa7E4YhVQo", "v_Sumo Squat": "https://www.youtube.com/shorts/s2QBBxoHYJI", "v_Leg Press": "https://www.youtube.com/shorts/OlWE5rOjS5o", "v_DB Chest Press": "https://www.youtube.com/shorts/7J7O3NqoRt8", "v_10k steps goal": "https://www.youtube.com/shorts/blis0053Av0", "v_Plank": "https://www.youtube.com/shorts/Pkp3SOvipZ0", "v_reconnect & recharge": "https://www.youtube.com/shorts/XwLnFPD7sjI", "v_Barbell Hip Thrust": "https://www.youtube.com/shorts/xZ0FVnF_DLQ", "v_Romanian Deadlift": "https://www.youtube.com/shorts/PPz0x59s080", "v_Leg Extension": "https://www.youtube.com/shorts/2zZ3vkPsExQ", "v_Smith Machine Squat": "https://www.youtube.com/shorts/kcHB5CXlA1w", "v_Active recovery": "https://www.youtube.com/shorts/bXv3O4s2ZTE", "v_Hammer Curls": "https://www.youtube.com/shorts/0qzSDAfBzSw", "v_Russian Twists": "https://www.youtube.com/shorts/KUsvxlmpPoI", "v_Hip Thrust": "https://www.youtube.com/shorts/xZ0FVnF_DLQ", "v_Barbell Squat": "https://www.youtube.com/shorts/S9iWwaqbD3Q", "v_Calf Raises": "https://www.youtube.com/shorts/fZYTVO9-Ggk"};
 const SUPPS = ['Fish Oil 3,000mg','Creatine 5g','Vitamin D3 50,000 IU','K2 100mcg','Greens Powder','Zinc 50mg','Magnesium 400mg','Multivitamin'];
 
 // ════════════════════════════════════════════
@@ -696,6 +697,11 @@ function renderWorkouts(el) {
             const text = e.trim();
             const exName = text.replace(/[0-9]+×[0-9\-]+.*/, '').trim();
             if (exName.length > 3 && !text.toLowerCase().includes('walk') && !text.toLowerCase().includes('stretch')) {
+              const prefix = cur === 'mayowa' ? 'm_' : 'v_';
+              const bestLink = EXERCISE_LINKS[prefix + exName];
+              if (bestLink) {
+                return `<span>· <a href="${bestLink}" target="_blank" style="color:var(--text);text-decoration:underline;text-underline-offset:3px">${text}</a></span>`;
+              }
               const q = encodeURIComponent(exName + ' exercise form');
               return `<span>· <a href="https://www.youtube.com/results?search_query=${q}" target="_blank" style="color:var(--text);text-decoration:underline;text-underline-offset:3px">${text}</a></span>`;
             }
@@ -1159,6 +1165,11 @@ function renderPlan(el) {
             const text = e.trim();
             const exName = text.replace(/[0-9]+×[0-9\-]+.*/, '').trim();
             if (exName.length > 3 && !text.toLowerCase().includes('walk') && !text.toLowerCase().includes('stretch')) {
+              const prefix = 'm_';
+              const bestLink = EXERCISE_LINKS[prefix + exName];
+              if (bestLink) {
+                return `<span>· <a href="${bestLink}" target="_blank" style="color:var(--text);text-decoration:underline;text-underline-offset:3px">${text}</a></span>`;
+              }
               const q = encodeURIComponent(exName + ' exercise form');
               return `<span>· <a href="https://www.youtube.com/results?search_query=${q}" target="_blank" style="color:var(--text);text-decoration:underline;text-underline-offset:3px">${text}</a></span>`;
             }
@@ -1194,6 +1205,11 @@ function renderPlan(el) {
             const text = e.trim();
             const exName = text.replace(/[0-9]+×[0-9\-]+.*/, '').trim();
             if (exName.length > 3 && !text.toLowerCase().includes('walk') && !text.toLowerCase().includes('stretch')) {
+              const prefix = 'v_';
+              const bestLink = EXERCISE_LINKS[prefix + exName];
+              if (bestLink) {
+                return `<span>· <a href="${bestLink}" target="_blank" style="color:var(--text);text-decoration:underline;text-underline-offset:3px">${text}</a></span>`;
+              }
               const q = encodeURIComponent(exName + ' exercise form');
               return `<span>· <a href="https://www.youtube.com/results?search_query=${q}" target="_blank" style="color:var(--text);text-decoration:underline;text-underline-offset:3px">${text}</a></span>`;
             }
